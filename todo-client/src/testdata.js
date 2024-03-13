@@ -2,13 +2,6 @@
 
 export const tasks = [
   {
-    id: 0,
-    taskname: "do something",
-    taskdesc: "this is a task",
-    completed: false,
-    duedate: "2024-03-15", // Due on March 15, 2024
-  },
-  {
     id: 1,
     taskname: "Finish homework",
     taskdesc: "Math and Science assignments",
