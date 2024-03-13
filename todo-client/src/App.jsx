@@ -1,7 +1,13 @@
+import Header from "./components/Header";
+import TodoPage from "./pages/TodoPage/TodoPage";
+import Footer from "./components/Footer";
+
 function App() {
   return (
     <>
-      <main>I am a to do app, please add content here</main>
+      <Header />
+      <TodoPage />
+      <Footer />
     </>
   );
 }
