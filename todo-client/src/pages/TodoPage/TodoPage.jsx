@@ -2,6 +2,7 @@ import MoreButton from "../../components/MoreButton";
 import User from "../../components/User";
 import AddButton from "../../components/AddButton";
 import Filter from "../../components/Filter";
+import TodoItem from "../../components/TodoItem";
 
 export default function TodoPage() {
   return (
@@ -11,9 +12,9 @@ export default function TodoPage() {
       <Filter />
       <main className="todo-list">
         <ul>
-          // javascript.map
-          <TodoPage />
-          //end map
+          {/* // javascript.map */}
+          <TodoItem />
+          {/* //end map */}
         </ul>
         <MoreButton />
       </main>
