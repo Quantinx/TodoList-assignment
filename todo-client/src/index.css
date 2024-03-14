@@ -1,0 +1,42 @@
+/* css reset */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+figure,
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ol,
+ul {
+  margin: 0;
+  list-style-type: none;
+  padding-inline-start: 0px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --clr-accent: black;
+  --clr-primary: white;
+}
+
+/* background-color: var(--clr-primary); */
+/* color: var(--clr-accent); */
