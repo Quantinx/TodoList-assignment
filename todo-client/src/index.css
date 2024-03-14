@@ -36,6 +36,8 @@ html {
 :root {
   --clr-accent: black;
   --clr-primary: white;
+  --clr-cta-primary: #7ce56a;
+  --clr-cta-secondary: #f88e3e;
 }
 
 /* background-color: var(--clr-primary); */
