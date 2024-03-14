@@ -1,0 +1,31 @@
+.box_header {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.header {
+  width: 95vw;
+  height: 60px;
+  padding: 5px;
+  display: flex;
+  margin-top: 5px;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: solid 3px var(--clr-accent);
+  border-left: solid 3px var(--clr-accent);
+  border-right: solid 3px var(--clr-accent);
+  border-radius: 20px 20px 20px 20px;
+}
+
+.header__title {
+  font-size: 2rem;
+  font-family: monospace;
+  margin-right: 10px;
+}
+
+.header__subtitle {
+  font-size: 0.6rem;
+  font-family: monospace;
+}
