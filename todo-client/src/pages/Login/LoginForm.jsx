@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import "./login.css";
 
@@ -9,8 +10,6 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const [showRegistration, setShowRegistration] = useState(false);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -37,42 +36,39 @@ export default function LoginForm() {
     }
   }
 
-  const handleNoAccountClick = () => {
-    setShowRegistration(true);
-  };
-
   return (
     <div className="container">
       <h2 className="title">Login</h2>
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Enter your email here"
-            {...register("email", { required: true })}
-          />
-          {errors.email && (
-            <div style={{ color: "red" }}>*Email* is mandatory </div>
-          )}
-        </div>
-        <div className="form-group">
-          <input
-            id="password"
-            type="password"
-            {...register("password")}
-            placeholder="Enter your password here"
-          />
-          <div className="showpassword-box">
-            <input type="checkbox" onClick={showPassword} />
-            <span>Show password</span>
+        <form className="form" onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Enter your email here"
+              {...register("email", { required: true })}
+            />
+            {errors.email && (
+              <div style={{ color: "red" }}>*Email* is mandatory </div>
+            )}
           </div>
-        </div>
-
-        <div className="form-group">
-          <input type={"submit"} value={"Log in"} />
-        </div>
-        <button onClick={handleNoAccountClick}>I have no account</button>
-      </form>
+          <div className="form-group">
+            <input
+              id="password"
+              type="password"
+              {...register("password")}
+              placeholder="Enter your password here"
+            />
+            <div className="showpassword-box">
+              <input type="checkbox" onClick={showPassword} />
+              <span>Show password</span>
+            </div>
+          </div>
+          <div className="form-group">
+            <input type={"submit"} value={"Log in"} />
+          </div>
+          <Link to="/register">
+            <button >I have no account</button>
+          </Link>
+        </form>
     </div>
   );
 }
