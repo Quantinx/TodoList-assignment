@@ -1,0 +1,78 @@
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+
+import "./login.css";
+
+export default function LoginForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [showRegistration, setShowRegistration] = useState(false);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    // const userData = JSON.parse(localStorage.getItem(data.email));
+    // if (userData) {
+    //   // getItem can return actual value or null
+    //   if (userData.password === data.password) {
+    //     console.log(userData.name + " You Are Successfully Logged In");
+    //   } else {
+    //     console.log("Email or Password is not matching with our record");
+    //   }
+    // } else {
+    //   console.log("Email or Password is not matching with our record");
+    // }
+  };
+
+  function showPassword(clicked) {
+    const passwordInput = document.getElementById("password");
+
+    if (clicked.target.checked) {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+  }
+
+  const handleNoAccountClick = () => {
+    setShowRegistration(true);
+  };
+
+  return (
+    <div className="container">
+      <h2 className="title">Login</h2>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-group">
+          <input
+            type="email"
+            placeholder="Enter your email here"
+            {...register("email", { required: true })}
+          />
+          {errors.email && (
+            <div style={{ color: "red" }}>*Email* is mandatory </div>
+          )}
+        </div>
+        <div className="form-group">
+          <input
+            id="password"
+            type="password"
+            {...register("password")}
+            placeholder="Enter your password here"
+          />
+          <div className="showpassword-box">
+            <input type="checkbox" onClick={showPassword} />
+            <span>Show password</span>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <input type={"submit"} value={"Log in"} />
+        </div>
+        <button onClick={handleNoAccountClick}>I have no account</button>
+      </form>
+    </div>
+  );
+}
