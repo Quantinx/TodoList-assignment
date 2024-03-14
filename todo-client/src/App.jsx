@@ -5,20 +5,23 @@ import Landing from "./pages/Landing/Landing";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { TaskProvider } from "./provider/TaskProvider";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route index element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/todo" element={<TodoPage />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+      <TaskProvider>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route index element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/todo" element={<TodoPage />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </TaskProvider>
     </>
   );
 }
