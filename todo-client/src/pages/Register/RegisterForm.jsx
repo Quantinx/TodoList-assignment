@@ -1,5 +1,6 @@
 import "./Register.css";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 export default function RegisterForm() {
   const {
@@ -107,6 +108,10 @@ export default function RegisterForm() {
             value={"Create account"}
           />
         </div>
+
+        <Link to="/login">
+          <button>I already have an account</button>
+        </Link>
       </form>
     </div>
   );
