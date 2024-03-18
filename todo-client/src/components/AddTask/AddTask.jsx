@@ -27,7 +27,7 @@ export default function AddTask({ visible, onClose }) {
       return;
     }
     if (desc === "") {
-      setResponse("Please enter a task name");
+      setResponse("Please enter a task description");
       return;
     }
 
