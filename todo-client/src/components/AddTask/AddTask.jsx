@@ -38,6 +38,7 @@ export default function AddTask({ visible, onClose }) {
 
     const res = addItem(name, desc, date);
     setResponse(res);
+    onClose();
   }
 
   return (
