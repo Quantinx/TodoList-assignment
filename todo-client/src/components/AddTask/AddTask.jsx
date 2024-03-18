@@ -1,13 +1,13 @@
 import React, { useState, useContext } from "react";
 import { TaskProviderContext } from "../../provider/TaskProvider";
-import "./MoreInfo.css";
+import "./AddTask.css";
 
-export default function MoreInfo({ task, visible, onClose }) {
-  const [name, setName] = useState(task.taskname);
-  const [desc, setDesc] = useState(task.taskdesc);
-  const [date, setDate] = useState(task.duedate);
+export default function AddTask({ visible, onClose }) {
+  const [name, setName] = useState("");
+  const [desc, setDesc] = useState("");
+  const [date, setDate] = useState("");
   const [response, setResponse] = useState();
-  const { updateItem } = useContext(TaskProviderContext);
+  const { addItem } = useContext(TaskProviderContext);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -21,7 +21,7 @@ export default function MoreInfo({ task, visible, onClose }) {
     setDate(e.target.value);
   };
 
-  function onSave() {
+  function onAdd() {
     if (name === "") {
       setResponse("Please enter a task name");
       return;
@@ -36,7 +36,7 @@ export default function MoreInfo({ task, visible, onClose }) {
       return;
     }
 
-    const res = updateItem(task.id, name, desc, date, task.completed);
+    const res = addItem(name, desc, date);
     setResponse(res);
   }
 
@@ -48,7 +48,7 @@ export default function MoreInfo({ task, visible, onClose }) {
           visibility: visible ? "visible" : "hidden",
         }}
       >
-        <h3>Manage Task</h3>
+        <h3>Add new task</h3>
         <button className="info-close-btn" onClick={onClose}>
           X
         </button>
@@ -72,8 +72,7 @@ export default function MoreInfo({ task, visible, onClose }) {
         ></input>
 
         <div> {response}</div>
-        <button onClick={onSave}>Save</button>
-        <button>Delete</button>
+        <button onClick={onAdd}>Add new task</button>
       </div>
     </>
   );

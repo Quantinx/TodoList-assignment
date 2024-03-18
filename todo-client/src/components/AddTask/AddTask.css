@@ -1,0 +1,24 @@
+.more-info {
+  position: absolute;
+  border: 1px solid;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  z-index: 1;
+  width: 50%;
+  height: 25rem;
+  background-color: var(--clr-primary);
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.info-close-btn {
+  height: fit-content;
+  width: fit-content;
+}
+
+.info-desc-input {
+  height: 12rem;
+}

@@ -5,6 +5,7 @@ import Filter from "../../components/Filter";
 import TodoItem from "../../components/TodoItem";
 import { useContext } from "react";
 import { TaskProviderContext } from "../../provider/TaskProvider";
+import AddTask from "../../components/AddTask/AddTask";
 
 export default function TodoPage() {
   const { taskItems } = useContext(TaskProviderContext);
