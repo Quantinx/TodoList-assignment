@@ -1,6 +1,5 @@
 import { useState } from "react";
 import MoreInfo from "./MoreInfo/MoreInfo";
-import "./TodoItem.css";
 
 export default function TodoItem({ task }) {
   const [showMore, setShowMore] = useState(false);

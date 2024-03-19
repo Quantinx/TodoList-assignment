@@ -48,7 +48,9 @@ export default function RegisterForm() {
             placeholder="Enter name"
             {...register("name", { required: true })}
           />
-          {errors.email && <div style={{ color: "red" }}>*Name* is mandatory </div>}
+          {errors.email && (
+            <div style={{ color: "red" }}>*Name* is mandatory </div>
+          )}
         </div>
 
         <div className="register-form-group">
@@ -58,7 +60,9 @@ export default function RegisterForm() {
             placeholder="Enter email"
             {...register("email", { required: true })}
           />
-          {errors.email && <div style={{ color: "red" }}>*Email* is mandatory </div>}
+          {errors.email && (
+            <div style={{ color: "red" }}>*Email* is mandatory </div>
+          )}
         </div>
         <div className="form-group">
           <input
@@ -77,7 +81,6 @@ export default function RegisterForm() {
             <span className="register-form-p">Show password</span>
           </div>
         </div>
-
         <div className="register-form-group">
           <input
             id="password2"
@@ -94,13 +97,14 @@ export default function RegisterForm() {
             <span className="register-form-p">Show password</span>
           </div>
         </div>
-
         {password !== password2 && password2.length > 0 && (
-          <p className="register-form-password-no-match" style={{ color: "red" }}>
+          <p
+            className="register-form-password-no-match"
+            style={{ color: "red" }}
+          >
             Passwords do not match!
           </p>
         )}
-
         <div className="register-form-group">
           <input
             className="register-form-submit-button"
@@ -108,7 +112,6 @@ export default function RegisterForm() {
             value={"Create account"}
           />
         </div>
-
         <Link to="/login">
           <button>I already have an account</button>
         </Link>
