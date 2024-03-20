@@ -74,10 +74,10 @@ app.post("/login", passport.authenticate("local"), (req, res) => {
   res.json("Welcome " + req.user.username);
 });
 
-app.get("/profile", (req, res) => {
+app.get("/todo", (req, res) => {
   if (req.isAuthenticated()) {
-    console.log(req.user);
-    res.json(req.user);
+    console.log(req.user.id);
+    res.json(req.user.id);
   } else {
     res.status(401).json("Unauthorized");
   }
