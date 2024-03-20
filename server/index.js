@@ -12,8 +12,12 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const app = express();
 const bodyParser = require("body-parser");
+//login and session
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
-app.use(cors()); // here app is express
+app.use(cors({ credentials: true, origin: "http://localhost:5173" })); //allows cookies to be transmitted across origins and specifies a domain to be allowed
 app.use(bodyParser.json());
 
 app.post("/register", async (req, res) => {
@@ -21,14 +25,13 @@ app.post("/register", async (req, res) => {
 
   if (await findUserByEmail(email)) {
     console.log("user already exists");
-    res.send("User exists");
-    return;
+    return res.status(500).json("User already exists.");
   }
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const user = { username, email, hashedPassword };
   addUser(user);
-  res.send("Data received");
+  res.status(201).json("User registered successfully.");
 });
 
 app.listen(PORT, () => {
