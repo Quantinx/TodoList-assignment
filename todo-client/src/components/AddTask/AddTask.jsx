@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { TaskProviderContext } from "../../provider/TaskProvider";
-import "./AddTask.css";
 
 export default function AddTask({ visible, onClose }) {
   const [name, setName] = useState("");
@@ -36,9 +35,18 @@ export default function AddTask({ visible, onClose }) {
       return;
     }
 
+    submit();
+
     const res = addItem(name, desc, date);
     setResponse(res);
     onClose();
+  }
+
+  function submit() {
+    setName("");
+    setDesc("");
+    setDate("");
+    setResponse("");
   }
 
   return (
@@ -51,20 +59,21 @@ export default function AddTask({ visible, onClose }) {
       >
         <h3>Add new task</h3>
         <button className="info-close-btn" onClick={onClose}>
-          X
+          x
         </button>
         <input
+          type="text"
           className="info-name-input"
           value={name}
           onChange={handleNameChange}
           placeholder="Task Name"
         ></input>
-        <input
+        <textarea
           className="info-desc-input"
           value={desc}
           onChange={handleDescChange}
           placeholder="Task Description"
-        ></input>
+        ></textarea>
         <input
           value={date}
           type="date"
@@ -72,7 +81,7 @@ export default function AddTask({ visible, onClose }) {
           placeholder="Due Date"
         ></input>
 
-        <div> {response}</div>
+        <div>{response}</div>
         <button onClick={onAdd}>Add new task</button>
       </div>
     </>

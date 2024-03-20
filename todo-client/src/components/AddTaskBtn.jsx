@@ -1,3 +1,7 @@
 export default function AddTaskBtn({ onClick }) {
-  return <button onClick={onClick}>+</button>;
+  return (
+    <>
+      <button onClick={onClick} className="add-bnt">+</button>
+    </>
+  );
 }
