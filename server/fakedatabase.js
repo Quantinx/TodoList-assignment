@@ -1,18 +1,20 @@
 const fakeDatabase = [
   {
-    id: 0,
+    id: 1,
     username: "test",
+    email: "me@ow.cat",
     password: "$2b$10$wYgNdqQ8GGSOvAaXQlxBguCVVtWIsXbUajn42ikJb9oMd4DnbsEt6",
   },
 ];
-let index = 1;
+let index = 2;
 
 function addUser(user) {
-  const { username, password } = user;
+  const { username, email, hashedPassword } = user;
   fakeDatabase.push({
     id: index,
     username,
-    password,
+    email,
+    password: hashedPassword,
   });
   console.log(JSON.stringify(fakeDatabase));
   index = index + 1;
@@ -27,8 +29,13 @@ async function findUserByUsername(username) {
   return fakeDatabase.find((user) => user.username === username);
 }
 
+async function findUserByEmail(email) {
+  return fakeDatabase.find((user) => user.email === email);
+}
+
 module.exports = {
   addUser,
   findUser,
   findUserByUsername,
+  findUserByEmail,
 };
