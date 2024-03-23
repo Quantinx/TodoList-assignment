@@ -1,9 +1,9 @@
-/* css reset */
+/* Reset */
 
 * {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 h1,
@@ -12,32 +12,94 @@ h3,
 h4,
 h5,
 figure,
-p {
-  margin: 0;
-}
-
-a {
-  text-decoration: none;
-}
-
+p,
 ol,
 ul {
   margin: 0;
-  list-style-type: none;
-  padding-inline-start: 0px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Global */
+:root {
+  --clr-primary-text: #251077;
+  --clr-secondary-text: #ffff;
+  --clr-cta-primary: #36b220;
+  --clr-cta-secondary: #9747ff;
+  --clr-warning: #fb1212;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-:root {
-  --clr-accent: black;
-  --clr-primary: white;
-  --clr-cta-primary: #7ce56a;
-  --clr-cta-secondary: #f88e3e;
+body {
+  font-family: "Comfortaa", Arial, Helvetica, sans-serif;
+  color: var(--clr-primary-text);
+  text-align: center;
+  letter-spacing: 0.02rem;
 }
 
+h1 {
+  font-family: "Reem Kufi Fun";
+  font-size: 2em;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 3rem; /* 183.333% */
+}
+
+p,
+strong {
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 2.75rem; /* 244.444% */
+}
+
+strong {
+  font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--clr-primary-text);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+ol,
+ul,
+li {
+  list-style-type: none;
+  padding-inline-start: 0px;
+}
+
+button {
+  width: 17em;
+  height: 4.5em;
+  box-shadow: inset 0 -5px 10px rgba(1, 6, 35, 0.2);
+  border-radius: 2em;
+  border: none;
+  cursor: pointer;
+  color: var(--clr-secondary-text);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+}
+/* Layout */
+
+/* @media */
+
+/*Joe's styling for TodoPage
+It doesn't connect to 'on click' to buttons */
 input,
 textarea {
   border: 1px solid rgb(172, 171, 171);
@@ -85,13 +147,10 @@ textarea {
 .todo-container-top {
   display: flex;
   align-items: center;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .filter-select {
   height: 40px;
   width: 100px;
 }
-
-/* background-color: var(--clr-primary); */
-/* color: var(--clr-accent); */

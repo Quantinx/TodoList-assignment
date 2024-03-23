@@ -9,17 +9,8 @@
   margin: 5em auto;
   gap: 2em;
 }
-.landingBtnLogin,
-.landingBtnCreate {
-  font-family: "Jolly Lodger", system-ui, Arial, Helvetica, sans-serif;
-  font-size: 1.5em;
+.landingBtnLogin {
   background-color: var(--clr-cta-primary);
-  width: 9em;
-  height: 3em;
-  border-radius: 0.4em;
-  border: none;
-  box-shadow: inset 0 -5px 10px rgba(1, 35, 4, 0.2);
-  cursor: pointer;
 }
 .landingBtnCreate {
   background-color: var(--clr-cta-secondary);
