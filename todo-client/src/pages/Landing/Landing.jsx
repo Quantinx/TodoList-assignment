@@ -5,15 +5,13 @@ function Landing() {
   return (
     <div>
       <main className={styles.landing}>
-        <h1>A simple ToDo list to manage daily routine.</h1>
-        <h2>You are always ready to plan the day!</h2>
         <nav className={styles.landingBtnContainer}>
           <Link to="/login">
-            <button className={styles.landingBtnLogin}>log in</button>
+            <button className={styles.landingBtnLogin}>Log In</button>
           </Link>
           <Link to="/register">
             <button className={styles.landingBtnCreate}>
-              create an account
+              Create an Account
             </button>
           </Link>
         </nav>
