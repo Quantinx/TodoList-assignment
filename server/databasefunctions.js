@@ -62,10 +62,60 @@ async function deleteTask(id) {
     });
 }
 
+async function filterTasks(user_id, page, filter = "all") {
+  const perPage = 5;
+  const currentDate = new Date();
+  let query = db("todos").where("user_id", user_id);
+
+  switch (filter) {
+    case "today":
+      query = query.whereBetween("due_date", [
+        currentDate,
+        new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          currentDate.getDate() + 1
+        ),
+      ]);
+      break;
+    case "tomorrow":
+      const tomorrow = new Date(currentDate);
+      tomorrow.setDate(currentDate.getDate() + 1);
+      query = query.whereBetween("due_date", [
+        tomorrow,
+        new Date(
+          tomorrow.getFullYear(),
+          tomorrow.getMonth(),
+          tomorrow.getDate() + 1
+        ),
+      ]);
+      break;
+    case "7days":
+      const sevenDaysLater = new Date(currentDate);
+      sevenDaysLater.setDate(currentDate.getDate() + 7);
+      query = query.whereBetween("due_date", [currentDate, sevenDaysLater]);
+      break;
+    case "all":
+      break;
+    default:
+      break;
+  }
+
+  query = query.orderBy("due_date", "asc");
+
+  const offset = (page - 1) * perPage;
+  query = query.limit(perPage).offset(offset);
+
+  const items = await query.select("*");
+
+  return items;
+}
+
 module.exports = {
   addUser,
   findUserByEmail,
   addTask,
   updateTask,
   deleteTask,
+  filterTasks,
 };

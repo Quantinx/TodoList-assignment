@@ -7,6 +7,7 @@ const {
   addTask,
   updateTask,
   deleteTask,
+  filterTasks,
 } = require("./databasefunctions");
 
 const config = require("./knexfile");
@@ -159,6 +160,19 @@ app.delete("/v1/todo/delete", (req, res) => {
     //allowing for validation later
     deleteTask(id);
     res.status(200).json("Successfully deleted task");
+  } else {
+    res.status(401).json("Unauthorized");
+  }
+});
+
+app.post("/v1/todo/fiter", async (req, res) => {
+  if (req.isAuthenticated()) {
+    const { page, filter } = req.body;
+    //allowing for validation later
+
+    console.log(req.user.id);
+    const results = await filterTasks(req.user.id, page, filter);
+    res.status(200).json(results);
   } else {
     res.status(401).json("Unauthorized");
   }
