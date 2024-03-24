@@ -3,10 +3,11 @@ const pw = process.env.HI_G1_EP_PW; //database password
 const PORT = 8080;
 const {
   addUser,
-  findUser,
-  findUserByUsername,
   findUserByEmail,
-} = require("./fakedatabase");
+  addTask,
+  updateTask,
+  deleteTask,
+} = require("./databasefunctions");
 
 const config = require("./knexfile");
 const express = require("express");
@@ -48,12 +49,25 @@ passport.use(
     },
     async (email, password, done) => {
       const user = await findUserByEmail(email);
+      // const user = await db
+      //   .select("id", "email", "hashedpassword")
+      //   .from("users")
+      //   .where("email", email)
+      //   .first()
+      //   .then(function (user) {
+      //     return user;
+      //   });
       console.log(user);
       if (!user) {
+        console.log("wrong email ");
         return done(null, false, { message: "No user exists" });
       }
-      const matchedPassword = await bcrypt.compare(password, user.password);
+      const matchedPassword = await bcrypt.compare(
+        password,
+        user.hashedpassword
+      );
       if (!matchedPassword) {
+        console.log("wrong password");
         return done(null, false, { message: "Wrong password" });
       }
       return done(null, user);
@@ -84,9 +98,10 @@ app.post("/register", async (req, res) => {
   res.status(201).json("User registered successfully.");
 });
 
-app.get("/todo", (req, res) => {
+app.get("/v1/todo", (req, res) => {
   if (req.isAuthenticated()) {
     console.log(req.user.id);
+    //Todo (lol ironic) migrate this code to the databasefunctions.js
     db.select()
       .from("todos")
       .where("user_id", req.user.id)
@@ -101,6 +116,52 @@ app.get("/todo", (req, res) => {
 app.post("/login", passport.authenticate("local"), (req, res) => {
   console.log("Successful login for: " + req.user.email);
   res.json("Welcome " + req.user.username);
+});
+
+app.post("/v1/todo/add", (req, res) => {
+  if (req.isAuthenticated()) {
+    const { title, description, dueDate, completed } = req.body;
+    //allowing for validation later
+    const task = {
+      title,
+      description,
+      due_date: dueDate,
+      completed,
+    };
+    console.log(req.user.id);
+    addTask(task, req.user.id);
+    res.status(200).json("Successfully added task");
+  } else {
+    res.status(401).json("Unauthorized");
+  }
+});
+
+app.put("/v1/todo/update", (req, res) => {
+  if (req.isAuthenticated()) {
+    const { id, title, description, dueDate, completed } = req.body;
+    //allowing for validation later
+    const task = {
+      title,
+      description,
+      due_date: dueDate,
+      completed,
+    };
+    updateTask(task, id);
+    res.status(200).json("Successfully edited task");
+  } else {
+    res.status(401).json("Unauthorized");
+  }
+});
+
+app.delete("/v1/todo/delete", (req, res) => {
+  if (req.isAuthenticated()) {
+    const { id } = req.body;
+    //allowing for validation later
+    deleteTask(id);
+    res.status(200).json("Successfully deleted task");
+  } else {
+    res.status(401).json("Unauthorized");
+  }
 });
 
 app.listen(PORT, () => {
