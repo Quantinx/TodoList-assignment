@@ -116,7 +116,16 @@ app.get("/v1/todo", (req, res) => {
 
 app.post("/login", passport.authenticate("local"), (req, res) => {
   console.log("Successful login for: " + req.user.email);
-  res.json("Welcome " + req.user.username);
+  res.json("Welcome " + req.user.name);
+});
+
+app.post("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json("Successfully logged out");
+  });
 });
 
 app.post("/v1/todo/add", (req, res) => {
@@ -165,7 +174,7 @@ app.delete("/v1/todo/delete", (req, res) => {
   }
 });
 
-app.post("/v1/todo/fiter", async (req, res) => {
+app.post("/v1/todo/filter", async (req, res) => {
   if (req.isAuthenticated()) {
     const { page, filter } = req.body;
     //allowing for validation later

@@ -1,8 +1,11 @@
 const config = require("./knexfile");
-
+const Joi = require("joi");
 const pg = require("pg");
 const knex = require("knex");
 const db = knex(config);
+
+//allows validation of uuids
+const uuidSchema = Joi.string().guid({ version: "uuidv4" });
 
 async function findUserByEmail(email) {
   const user = await db
@@ -45,6 +48,12 @@ async function addTask(task, id) {
 async function updateTask(task, id) {
   console.log(task);
   console.log(id);
+
+  const { error: idError } = uuidSchema.validate(id);
+  if (idError) {
+    console.log("Invalid UUID format");
+    return;
+  }
   db("todos")
     .where("id", id)
     .update(task)
@@ -54,6 +63,11 @@ async function updateTask(task, id) {
 }
 
 async function deleteTask(id) {
+  const { error: idError } = uuidSchema.validate(id);
+  if (idError) {
+    console.log("Invalid UUID format");
+    return;
+  }
   db("todos")
     .where("id", id)
     .delete()
