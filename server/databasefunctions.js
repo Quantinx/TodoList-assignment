@@ -9,7 +9,7 @@ const uuidSchema = Joi.string().guid({ version: "uuidv4" });
 
 async function findUserByEmail(email) {
   const user = await db
-    .select("id", "email", "hashedpassword")
+    .select("id", "name", "email", "hashedpassword")
     .from("users")
     .where("email", email)
     .first()
@@ -32,17 +32,21 @@ async function addUser(user) {
 }
 
 async function addTask(task, id) {
-  db("todos")
-    .insert({
+  try {
+    await db("todos").insert({
       title: task.title,
       description: task.description,
       due_date: task.dueDate,
       completed: task.completed,
       user_id: id,
-    })
-    .then(function () {
-      console.log("new task added to db");
     });
+
+    console.log("new task added to db");
+    return { status: 200, message: "Successfully added task" };
+  } catch (error) {
+    console.error("Failed to add task:", error);
+    return { status: 500, message: "Failed to add task" };
+  }
 }
 
 async function updateTask(task, id) {
@@ -52,28 +56,34 @@ async function updateTask(task, id) {
   const { error: idError } = uuidSchema.validate(id);
   if (idError) {
     console.log("Invalid UUID format");
-    return;
+    return { status: 500, message: "Invalid ID" };
   }
-  db("todos")
-    .where("id", id)
-    .update(task)
-    .then(function () {
-      console.log("task updated successfully");
-    });
+  try {
+    await db("todos").where("id", id).update(task);
+    console.log("Task updated successfully");
+    return { status: 200, message: "Task updated successfully" };
+  } catch (error) {
+    console.error("Error updating task:", error);
+    return { status: 500, message: "Failed to update task" };
+  }
 }
 
 async function deleteTask(id) {
   const { error: idError } = uuidSchema.validate(id);
   if (idError) {
     console.log("Invalid UUID format");
-    return;
+    return { status: 400, message: "Invalid ID" };
   }
-  db("todos")
-    .where("id", id)
-    .delete()
-    .then(function () {
-      console.log("task deleted successfully");
-    });
+
+  try {
+    await db("todos").where("id", id).delete();
+
+    console.log("Task deleted successfully");
+    return { status: 200, message: "Task deleted successfully" };
+  } catch (error) {
+    console.error("Error deleting task:", error);
+    return { status: 500, message: "Failed to delete task" };
+  }
 }
 
 async function filterTasks(user_id, page, filter = "all") {

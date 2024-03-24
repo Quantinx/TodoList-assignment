@@ -128,7 +128,7 @@ app.post("/logout", function (req, res, next) {
   });
 });
 
-app.post("/v1/todo/add", (req, res) => {
+app.post("/v1/todo/add", async (req, res) => {
   if (req.isAuthenticated()) {
     const { title, description, dueDate, completed } = req.body;
     //allowing for validation later
@@ -139,14 +139,14 @@ app.post("/v1/todo/add", (req, res) => {
       completed,
     };
     console.log(req.user.id);
-    addTask(task, req.user.id);
-    res.status(200).json("Successfully added task");
+    const { status, message } = await addTask(task, req.user.id);
+    res.status(status).json(message);
   } else {
     res.status(401).json("Unauthorized");
   }
 });
 
-app.put("/v1/todo/update", (req, res) => {
+app.put("/v1/todo/update", async (req, res) => {
   if (req.isAuthenticated()) {
     const { id, title, description, dueDate, completed } = req.body;
     //allowing for validation later
@@ -156,19 +156,19 @@ app.put("/v1/todo/update", (req, res) => {
       due_date: dueDate,
       completed,
     };
-    updateTask(task, id);
-    res.status(200).json("Successfully edited task");
+    const { status, message } = await updateTask(task, id);
+    res.status(status).json(message);
   } else {
     res.status(401).json("Unauthorized");
   }
 });
 
-app.delete("/v1/todo/delete", (req, res) => {
+app.delete("/v1/todo/delete", async (req, res) => {
   if (req.isAuthenticated()) {
     const { id } = req.body;
     //allowing for validation later
-    deleteTask(id);
-    res.status(200).json("Successfully deleted task");
+    const { status, message } = await deleteTask(id);
+    res.status(status).json(message);
   } else {
     res.status(401).json("Unauthorized");
   }
