@@ -3,33 +3,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 30px;
-}
-.footer__link {
-  margin-bottom: 10px;
+  padding: 5px 2px;
+  margin-top: auto;
+  border-top: 2px black solid;
+  /* position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 999; */
 }
 
-.footer__box-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 3px 10px;
-  border: solid 2px var(--clr-primary);
-  max-width: 250px;
-}
 .footer__title {
   color: var(--clr-primary);
-  margin-bottom: 30px;
+}
+
+.footer__name-box {
+  display: flex;
+  gap: 12px;
 }
 
 .footer__link-text {
   color: var(--clr-primary);
-  font-size: 1rem;
-}
-
-.footer__icon {
-  color: var(--clr-primary);
-  width: 20px;
-  height: 20px;
-  margin-left: 8px;
+  font-size: 0.9rem;
 }

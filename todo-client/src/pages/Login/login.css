@@ -1,9 +1,9 @@
 .title {
   text-align: center;
   width: 100%;
-  background-color: rgb(190, 164, 214);
-  padding: 2vw 1vw;
-  border-radius: 10px 10px 0 0;
+  margin-bottom: 20px;
+  /* padding: 2vw 1vw;
+  border-radius: 10px 10px 0 0; */
   font-size: 2rem;
 }
 
@@ -11,21 +11,71 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  /* margin: auto; */
   width: 100%;
-  padding: 2vw 1vw;
-  background-color: rgb(250, 194, 194);
-  border-radius: 0 0 10px 10px;
+  gap: 25px;
+  /* padding: 2vw 1vw;
+  border-radius: 0 0 10px 10px; */
 }
 
 .showpassword_box {
   display: flex;
-  margin-top: 25px;
+  /* margin-top: 25px; */
 }
 .showpassword_box span {
   margin-left: 10px;
   font-size: 18px;
 }
-.box input[type="checkbox"] {
+/* .box input[type="checkbox"] {
   width: 16px;
+  margin-right: 5px;
+} */
+
+/* NEW css */
+
+.container {
+  width: 100vw;
+  height: 70vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form-checkbox {
+  margin-right: 5px;
+}
+
+.loginform-input {
+  width: 22em;
+  padding: 10px;
+  border: 1.5px solid var(--clr-cta-primary);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.space {
+  margin-top: 10px;
+}
+
+.login-form-no-account {
+  background-color: var(--clr-cta-secondary);
+  margin-bottom: 20px;
+}
+
+.login-form-login {
+  width: 17em;
+  height: 4.5em;
+  box-shadow: inset 0 -5px 10px rgba(1, 6, 35, 0.2);
+  border-radius: 2em;
+  border: none;
+  cursor: pointer;
+  color: var(--clr-secondary-text);
+  background-color: var(--clr-cta-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  /* margin-bottom: 20px; */
 }
