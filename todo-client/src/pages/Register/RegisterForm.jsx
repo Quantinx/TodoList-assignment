@@ -39,7 +39,10 @@ export default function RegisterForm() {
 
   return (
     <div className="register-form-container">
-      <h2 className="register-form-title">Register a new account</h2>
+      <h2 className="register-form-title">
+        Register
+        <br />a new account
+      </h2>
       <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="register-form-group">
           <input
@@ -72,7 +75,7 @@ export default function RegisterForm() {
             {...register("password")}
             placeholder="Enter password"
           />
-          <div className="register-form-show-password-box">
+          <div className="register-form-show-password-box space">
             <input
               type="checkbox"
               className="register-form-checkbox"
@@ -83,12 +86,13 @@ export default function RegisterForm() {
         </div>
         <div className="register-form-group">
           <input
+            className="register-form-input"
             id="password2"
             type="password"
             {...register("password2")}
             placeholder="Enter password again"
           />
-          <div className="register-form-show-password-box">
+          <div className="register-form-show-password-box space">
             <input
               type="checkbox"
               className="register-form-checkbox"
@@ -113,7 +117,9 @@ export default function RegisterForm() {
           />
         </div>
         <Link to="/login">
-          <button>I already have an account</button>
+          <button className="register-form-have-an-account">
+            I have an account
+          </button>
         </Link>
       </form>
     </div>

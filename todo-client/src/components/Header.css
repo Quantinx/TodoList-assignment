@@ -2,29 +2,29 @@
   margin-top: 1rem;
   display: flex;
   justify-content: center;
+  height: 60px;
 }
 
 .header {
   width: 95vw;
-  height: 60px;
   padding: 5px;
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
+  gap: 10px;
   flex-wrap: wrap;
-  border-bottom: solid 3px var(--clr-accent);
-  border-left: solid 3px var(--clr-accent);
-  border-right: solid 3px var(--clr-accent);
-  border-radius: 20px 20px 20px 20px;
+  margin-bottom: 50px;
 }
 
 .header__title {
   font-size: 2rem;
-  font-family: monospace;
   margin-right: 10px;
 }
+.header-icon {
+  font-size: 2rem;
+}
 
-.header__subtitle {
+/* .header__subtitle {
   font-size: 0.6rem;
   font-family: monospace;
-}
+} */

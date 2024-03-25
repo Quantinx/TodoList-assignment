@@ -38,37 +38,47 @@ export default function LoginForm() {
 
   return (
     <div className="container">
-      <h2 className="title">Login</h2>
-        <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-group">
+      <h2 className="title">Log in</h2>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-group">
+          <input
+            className="loginform-input"
+            type="email"
+            placeholder="Enter your email here"
+            {...register("email", { required: true })}
+          />
+          {errors.email && (
+            <div style={{ color: "red" }}>*Email* is mandatory </div>
+          )}
+        </div>
+        <div className="form-group">
+          <input
+            className="loginform-input"
+            id="password"
+            type="password"
+            {...register("password")}
+            placeholder="Enter your password here"
+          />
+          <div className="showpassword-box space">
             <input
-              type="email"
-              placeholder="Enter your email here"
-              {...register("email", { required: true })}
+              className="login-form-checkbox"
+              type="checkbox"
+              onClick={showPassword}
             />
-            {errors.email && (
-              <div style={{ color: "red" }}>*Email* is mandatory </div>
-            )}
+            <span>Show password</span>
           </div>
-          <div className="form-group">
-            <input
-              id="password"
-              type="password"
-              {...register("password")}
-              placeholder="Enter your password here"
-            />
-            <div className="showpassword-box">
-              <input type="checkbox" onClick={showPassword} />
-              <span>Show password</span>
-            </div>
-          </div>
-          <div className="form-group">
-            <input type={"submit"} value={"Log in"} />
-          </div>
-          <Link to="/register">
-            <button >I have no account</button>
-          </Link>
-        </form>
+        </div>
+        <div className="form-group">
+          <input
+            className="login-form-login"
+            type={"submit"}
+            value={"Log in"}
+          />
+        </div>
+        <Link to="/register">
+          <button className="login-form-no-account">I have no account</button>
+        </Link>
+      </form>
     </div>
   );
 }
