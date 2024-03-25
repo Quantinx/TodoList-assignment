@@ -36,7 +36,7 @@ app.use(
     secret: "secret",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, sameSite: "none" }, //never do this in prod, however localhost has no https
+    cookie: { secure: false, sameSite: "lax" }, //never do this in prod, however localhost has no https
   })
 );
 
