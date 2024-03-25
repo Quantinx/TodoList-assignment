@@ -1,29 +1,58 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./login.css";
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const [loginStatus, setLoginStatus] = useState();
+  const [statusMessage, setStatusMessage] = useState();
+
+  useEffect(() => {
+    console.log("res changed");
+    if (loginStatus === 200) {
+      console.log("res success");
+      //logic for success
+      setStatusMessage("User login successfully");
+      navigate("/todo");
+      return;
+    }
+
+    if (loginStatus === 401) {
+      setStatusMessage("Login failed");
+      return;
+      //logic for failure
+    }
+    if (loginStatus) {
+      setStatusMessage("Unknown error");
+    }
+    //catch all logic
+  }, [loginStatus]);
+
+  async function sendData(payload) {
+    const url = "http://localhost:8080/login";
+    const res = await fetch(url, {
+      method: "POST",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    console.log("Res :" + res.status);
+    setLoginStatus(res.status);
+  }
+
   const onSubmit = (data) => {
-    console.log(data);
-    // const userData = JSON.parse(localStorage.getItem(data.email));
-    // if (userData) {
-    //   // getItem can return actual value or null
-    //   if (userData.password === data.password) {
-    //     console.log(userData.name + " You Are Successfully Logged In");
-    //   } else {
-    //     console.log("Email or Password is not matching with our record");
-    //   }
-    // } else {
-    //   console.log("Email or Password is not matching with our record");
-    // }
+    sendData(data);
   };
 
   function showPassword(clicked) {
@@ -68,6 +97,7 @@ export default function LoginForm() {
             <span>Show password</span>
           </div>
         </div>
+        <div>{statusMessage}</div>
         <div className="form-group">
           <input
             className="login-form-login"

@@ -61,6 +61,7 @@ passport.use(
       console.log(user);
       if (!user) {
         console.log("wrong email ");
+
         return done(null, false, { message: "No user exists" });
       }
       const matchedPassword = await bcrypt.compare(
@@ -69,6 +70,7 @@ passport.use(
       );
       if (!matchedPassword) {
         console.log("wrong password");
+
         return done(null, false, { message: "Wrong password" });
       }
       return done(null, user);

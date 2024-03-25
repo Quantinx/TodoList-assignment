@@ -1,8 +1,10 @@
 import "./Register.css";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -10,8 +12,47 @@ export default function RegisterForm() {
     watch,
   } = useForm();
 
+  const [registerResponse, setRegisterResponse] = useState();
+  const [registerStatus, setRegisterStatus] = useState();
+  const [statusMessage, setStatusMessage] = useState();
+
+  useEffect(() => {
+    if (registerStatus === 201) {
+      //logic for success
+      setStatusMessage("User created successfully");
+      navigate("/login");
+      return;
+    }
+
+    if (registerStatus === 500) {
+      setStatusMessage("User with this name already exists");
+      return;
+      //logic for failure
+    }
+    if (registerStatus) {
+      setStatusMessage("Unknown error");
+    }
+    //catch all logic
+  }, [registerStatus]);
+
+  async function sendData(payload) {
+    const url = "http://localhost:8080/register";
+    const res = await fetch(url, {
+      method: "POST",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    setRegisterStatus(res.status);
+    setRegisterResponse(data);
+  }
+
   const onSubmit = (data) => {
-    console.log(data);
+    sendData(data);
   };
 
   function showPassword(clicked) {
@@ -35,7 +76,7 @@ export default function RegisterForm() {
   }
 
   const password = watch("password", "");
-  const password2 = watch("password2", "");
+  // const password2 = watch("password2", "");
 
   return (
     <div className="register-form-container">
@@ -47,9 +88,9 @@ export default function RegisterForm() {
         <div className="register-form-group">
           <input
             className="register-form-input"
-            type="name"
+            type="text"
             placeholder="Enter name"
-            {...register("name", { required: true })}
+            {...register("username", { required: true })}
           />
           {errors.email && (
             <div style={{ color: "red" }}>*Name* is mandatory </div>
@@ -84,7 +125,7 @@ export default function RegisterForm() {
             <span className="register-form-p">Show password</span>
           </div>
         </div>
-        <div className="register-form-group">
+        {/* <div className="register-form-group">
           <input
             className="register-form-input"
             id="password2"
@@ -108,7 +149,7 @@ export default function RegisterForm() {
           >
             Passwords do not match!
           </p>
-        )}
+        )} */}
         <div className="register-form-group">
           <input
             className="register-form-submit-button"
@@ -116,6 +157,7 @@ export default function RegisterForm() {
             value={"Create account"}
           />
         </div>
+        <div>{statusMessage}</div>
         <Link to="/login">
           <button className="register-form-have-an-account">
             I have an account
