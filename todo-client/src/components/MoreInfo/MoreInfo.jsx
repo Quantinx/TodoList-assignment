@@ -1,9 +1,14 @@
 import { useState, useContext } from "react";
 import { TaskProviderContext } from "../../provider/TaskProvider";
-import { convertTimestampToDatetimeLocal } from "../../helpers/datetime";
+import {
+  convertLocaltimeStampToUTC,
+  convertTimestampToDatetimeLocal,
+} from "../../helpers/datetime";
 
 export default function MoreInfo({ task, visible, onClose }) {
   const localtimestamp = convertTimestampToDatetimeLocal(task.due_date);
+  console.log(task.due_date + " RAW");
+  console.log(convertLocaltimeStampToUTC(localtimestamp) + " PROCESSED");
   const [name, setName] = useState(task.title);
   const [desc, setDesc] = useState(task.description);
   const [date, setDate] = useState(localtimestamp);
