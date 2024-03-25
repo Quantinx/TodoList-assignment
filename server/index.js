@@ -3,10 +3,12 @@ const pw = process.env.HI_G1_EP_PW; //database password
 const PORT = 8080;
 const {
   addUser,
-  findUser,
-  findUserByUsername,
   findUserByEmail,
-} = require("./fakedatabase");
+  addTask,
+  updateTask,
+  deleteTask,
+  filterTasks,
+} = require("./databasefunctions");
 
 const config = require("./knexfile");
 const express = require("express");
@@ -48,12 +50,25 @@ passport.use(
     },
     async (email, password, done) => {
       const user = await findUserByEmail(email);
+      // const user = await db
+      //   .select("id", "email", "hashedpassword")
+      //   .from("users")
+      //   .where("email", email)
+      //   .first()
+      //   .then(function (user) {
+      //     return user;
+      //   });
       console.log(user);
       if (!user) {
+        console.log("wrong email ");
         return done(null, false, { message: "No user exists" });
       }
-      const matchedPassword = await bcrypt.compare(password, user.password);
+      const matchedPassword = await bcrypt.compare(
+        password,
+        user.hashedpassword
+      );
       if (!matchedPassword) {
+        console.log("wrong password");
         return done(null, false, { message: "Wrong password" });
       }
       return done(null, user);
@@ -84,9 +99,10 @@ app.post("/register", async (req, res) => {
   res.status(201).json("User registered successfully.");
 });
 
-app.get("/todo", (req, res) => {
+app.get("/v1/todo", (req, res) => {
   if (req.isAuthenticated()) {
     console.log(req.user.id);
+    //Todo (lol ironic) migrate this code to the databasefunctions.js
     db.select()
       .from("todos")
       .where("user_id", req.user.id)
@@ -100,7 +116,75 @@ app.get("/todo", (req, res) => {
 
 app.post("/login", passport.authenticate("local"), (req, res) => {
   console.log("Successful login for: " + req.user.email);
-  res.json("Welcome " + req.user.username);
+  res.json("Welcome " + req.user.name);
+});
+
+app.post("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json("Successfully logged out");
+  });
+});
+
+app.post("/v1/todo/add", async (req, res) => {
+  if (req.isAuthenticated()) {
+    const { title, description, dueDate, completed } = req.body;
+    //allowing for validation later
+    const task = {
+      title,
+      description,
+      due_date: dueDate,
+      completed,
+    };
+    console.log(req.user.id);
+    const { status, message } = await addTask(task, req.user.id);
+    res.status(status).json(message);
+  } else {
+    res.status(401).json("Unauthorized");
+  }
+});
+
+app.put("/v1/todo/update", async (req, res) => {
+  if (req.isAuthenticated()) {
+    const { id, title, description, dueDate, completed } = req.body;
+    //allowing for validation later
+    const task = {
+      title,
+      description,
+      due_date: dueDate,
+      completed,
+    };
+    const { status, message } = await updateTask(task, id);
+    res.status(status).json(message);
+  } else {
+    res.status(401).json("Unauthorized");
+  }
+});
+
+app.delete("/v1/todo/delete", async (req, res) => {
+  if (req.isAuthenticated()) {
+    const { id } = req.body;
+    //allowing for validation later
+    const { status, message } = await deleteTask(id);
+    res.status(status).json(message);
+  } else {
+    res.status(401).json("Unauthorized");
+  }
+});
+
+app.post("/v1/todo/filter", async (req, res) => {
+  if (req.isAuthenticated()) {
+    const { page, filter } = req.body;
+    //allowing for validation later
+
+    console.log(req.user.id);
+    const results = await filterTasks(req.user.id, page, filter);
+    res.status(200).json(results);
+  } else {
+    res.status(401).json("Unauthorized");
+  }
 });
 
 app.listen(PORT, () => {

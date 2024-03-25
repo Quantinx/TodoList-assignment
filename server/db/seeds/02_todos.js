@@ -6,40 +6,34 @@ exports.seed = function (knex, Promise) {
       // Inserts seed entries
       return knex("todos").insert([
         {
-          id: 1,
           title: "go to store for milk",
           description: "a test description",
-          user_id: 1,
+          user_id: "540e0dad-7837-419e-b142-5ea7dca433fa", // Replace with actual UUID
         },
         {
-          id: 2,
           title: "walk the dog",
           description: "a test description",
-          user_id: 2,
+          user_id: "540e0dad-7837-419e-b142-5ea7dca433fa", // Replace with actual UUID
         },
         {
-          id: 3,
           title: "go to the gym",
           description: "a test description",
-          user_id: 3,
+          user_id: "6ca6de66-92ba-43ca-9678-c7f9cba11778", // Replace with actual UUID
         },
         {
-          id: 4,
           title: "stop the damn leafblowers outside",
           description: "a test description",
-          user_id: 3,
+          user_id: "6ca6de66-92ba-43ca-9678-c7f9cba11778", // Replace with actual UUID
         },
         {
-          id: 5,
           title: "get the mail",
           description: "a test description",
-          user_id: 3,
+          user_id: "cf6f946a-1fa2-4ea4-925b-06df502ec5a0", // Replace with actual UUID
         },
         {
-          id: 6,
           title: "get some headphones",
           description: "a test description",
-          user_id: 3,
+          user_id: "cf6f946a-1fa2-4ea4-925b-06df502ec5a0", // Replace with actual UUID
         },
       ]);
     });
