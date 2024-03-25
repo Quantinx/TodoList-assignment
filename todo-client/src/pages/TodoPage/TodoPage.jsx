@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { TaskProviderContext } from "../../provider/TaskProvider";
 import AddTaskBtn from "../../components/AddTaskBtn";
 import AddTask from "../../components/AddTask/AddTask";
+import styles from "./TodoPage.module.css";
 
 const TODAY_FILTER = "today";
 const TOMORROW_FILTER = "tommorow";
@@ -60,36 +61,40 @@ export default function TodoPage() {
   });
 
   return (
-    <div className="todo-container">
-      <User />
-      <div className="todo-container-top">
-        <AddTaskBtn onClick={showAddTask} />
-        <Filter onFilterChange={handleFilterChange} />
-      </div>
-      <main className="todo-list">
-        {filteredTasks.length > 0 ? (
-          <ul>
-            {filteredTasks.map((task, index) => {
-              let heading = null;
-              if (filter === TODAY_FILTER && index === 0) {
-                heading = <h2>Today</h2>;
-              } else if (filter === TOMORROW_FILTER && index === 0) {
-                heading = <h2>Tomorrow</h2>;
-              } else if (filter === WEEK_FILTER && index === 0) {
-                heading = <h2>This Week</h2>;
-              }
-              return (
-                <div key={task.taskname}>
-                  {heading}
-                  <TodoItem task={task} />
-                </div>
-              );
-            })}
-          </ul>
-        ) : (
-          <div>No data found</div>
-        )}
-        <AddTask visible={addTaskVisible} onClose={hideAddTask} />
+    <div>
+      <main className={styles.todo__container}>
+        <User />
+        <h1>Your planning:</h1>
+        <div className={styles.todo__header}>
+          <AddTaskBtn onClick={showAddTask} />
+          <Filter onFilterChange={handleFilterChange} />
+        </div>
+
+        <div className={styles.todo__list}>
+          {filteredTasks.length > 0 ? (
+            <ul>
+              {filteredTasks.map((task, index) => {
+                let heading = null;
+                if (filter === TODAY_FILTER && index === 0) {
+                  heading = <h2>Today</h2>;
+                } else if (filter === TOMORROW_FILTER && index === 0) {
+                  heading = <h2>Tomorrow</h2>;
+                } else if (filter === WEEK_FILTER && index === 0) {
+                  heading = <h2>This Week</h2>;
+                }
+                return (
+                  <div key={task.taskname}>
+                    {heading}
+                    <TodoItem task={task} />
+                  </div>
+                );
+              })}
+            </ul>
+          ) : (
+            <div>No data found</div>
+          )}
+          <AddTask visible={addTaskVisible} onClose={hideAddTask} />
+        </div>
       </main>
     </div>
   );
