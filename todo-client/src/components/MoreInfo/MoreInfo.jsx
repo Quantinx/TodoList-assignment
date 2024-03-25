@@ -1,10 +1,12 @@
 import { useState, useContext } from "react";
 import { TaskProviderContext } from "../../provider/TaskProvider";
+import { convertTimestampToDatetimeLocal } from "../../helpers/datetime";
 
 export default function MoreInfo({ task, visible, onClose }) {
-  const [name, setName] = useState(task.taskname);
-  const [desc, setDesc] = useState(task.taskdesc);
-  const [date, setDate] = useState(task.duedate);
+  const localtimestamp = convertTimestampToDatetimeLocal(task.due_date);
+  const [name, setName] = useState(task.title);
+  const [desc, setDesc] = useState(task.description);
+  const [date, setDate] = useState(localtimestamp);
   const [response, setResponse] = useState();
   const { updateItem } = useContext(TaskProviderContext);
 
@@ -48,7 +50,9 @@ export default function MoreInfo({ task, visible, onClose }) {
         }}
       >
         <h3>Manage Task</h3>
-        <button className="info-close-btn" onClick={onClose}>X</button>
+        <button className="info-close-btn" onClick={onClose}>
+          X
+        </button>
         <input
           className="info-name-input"
           value={name}
@@ -63,11 +67,10 @@ export default function MoreInfo({ task, visible, onClose }) {
         ></textarea>
         <input
           value={date}
-          type="date"
+          type="datetime-local"
           onChange={handleDateChange}
           placeholder="Due Date"
         ></input>
-
         <div> {response}</div>
         <button onClick={onSave}>Save</button>
         <button>Delete</button>

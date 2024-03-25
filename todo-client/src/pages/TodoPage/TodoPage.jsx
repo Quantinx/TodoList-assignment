@@ -6,22 +6,38 @@ import { TaskProviderContext } from "../../provider/TaskProvider";
 import AddTaskBtn from "../../components/AddTaskBtn";
 import AddTask from "../../components/AddTask/AddTask";
 import styles from "./TodoPage.module.css";
-
-const TODAY_FILTER = "today";
-const TOMORROW_FILTER = "tommorow";
-const WEEK_FILTER = "week";
-const ALL_FILTER = "all";
+import { useEffect } from "react";
+import { set } from "react-hook-form";
 
 export default function TodoPage() {
-  let { taskItems } = useContext(TaskProviderContext);
+  const { taskItems, setTaskItems } = useContext(TaskProviderContext);
   const [addTaskVisible, setTaskVisible] = useState(false);
-  const [filter, setFilter] = useState(ALL_FILTER);
+  const [page, setPage] = useState(1);
 
-  const shouldFilter = [WEEK_FILTER, ALL_FILTER].includes(filter);
-  if (shouldFilter)
-    taskItems = [...taskItems].sort(
-      (a, b) => new Date(a.duedate) - new Date(b.duedate)
-    );
+  useEffect(() => {
+    const payload = {
+      filter: "all",
+      page: page,
+    };
+
+    sendData(payload);
+
+    async function sendData(payload) {
+      const url = "http://localhost:8080/v1/todo/filter";
+      const res = await fetch(url, {
+        method: "POST",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      console.log(data);
+      setTaskItems(data);
+    }
+  }, []);
 
   function showAddTask() {
     setTaskVisible(true);
@@ -31,35 +47,6 @@ export default function TodoPage() {
     setTaskVisible(false);
   }
 
-  function handleFilterChange(event) {
-    setFilter(event.target.value);
-  }
-
-  function getEndOfWeek() {
-    const today = new Date();
-    const daysUntilSunday = 8 - today.getDay();
-    const endOfWeek = new Date(
-      today.getTime() + daysUntilSunday * 24 * 60 * 60 * 1000
-    );
-    return endOfWeek;
-  }
-
-  const filteredTasks = taskItems.filter((task) => {
-    const taskDate = new Date(task.duedate);
-    if (filter === TODAY_FILTER) {
-      const today = new Date();
-      return taskDate.toDateString() === today.toDateString();
-    } else if (filter === TOMORROW_FILTER) {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      return taskDate.toDateString() === tomorrow.toDateString();
-    } else if (filter === WEEK_FILTER) {
-      const endOfWeek = getEndOfWeek();
-      return taskDate <= endOfWeek;
-    }
-    return true;
-  });
-
   return (
     <div>
       <main className={styles.todo__container}>
@@ -67,27 +54,14 @@ export default function TodoPage() {
         <h1>Your planning:</h1>
         <div className={styles.todo__header}>
           <AddTaskBtn onClick={showAddTask} />
-          <Filter onFilterChange={handleFilterChange} />
+          <Filter />
         </div>
 
         <div className={styles.todo__list}>
-          {filteredTasks.length > 0 ? (
+          {taskItems ? (
             <ul>
-              {filteredTasks.map((task, index) => {
-                let heading = null;
-                if (filter === TODAY_FILTER && index === 0) {
-                  heading = <h2>Today</h2>;
-                } else if (filter === TOMORROW_FILTER && index === 0) {
-                  heading = <h2>Tomorrow</h2>;
-                } else if (filter === WEEK_FILTER && index === 0) {
-                  heading = <h2>This Week</h2>;
-                }
-                return (
-                  <div key={task.taskname}>
-                    {heading}
-                    <TodoItem task={task} />
-                  </div>
-                );
+              {taskItems.map((task) => {
+                return <TodoItem task={task} key={task.id} />;
               })}
             </ul>
           ) : (

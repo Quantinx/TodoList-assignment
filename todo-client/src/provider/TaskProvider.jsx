@@ -1,10 +1,10 @@
 import { useState, createContext } from "react";
 import { tasks } from "../testdata";
 export const TaskProviderContext = createContext();
-const data = tasks;
 
 export const TaskProvider = ({ children }) => {
-  const [taskItems, setTaskItems] = useState(data);
+  const [taskItems, setTaskItems] = useState();
+  const [loggedIn, setLoggedIn] = useState(true);
 
   function updateItem(id, title, desc, date, comp) {
     const updatedRow = taskItems.map((task) =>
@@ -34,12 +34,17 @@ export const TaskProvider = ({ children }) => {
     };
     const newData = [...taskItems, data];
     setTaskItems(newData);
-
-    console.log("adding item");
     return "Task added succesfully";
   }
 
-  const value = { taskItems, setTaskItems, updateItem, addItem };
+  const value = {
+    taskItems,
+    setTaskItems,
+    updateItem,
+    addItem,
+    loggedIn,
+    setLoggedIn,
+  };
 
   return (
     <TaskProviderContext.Provider value={value}>

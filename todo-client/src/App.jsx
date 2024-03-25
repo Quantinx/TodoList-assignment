@@ -7,6 +7,7 @@ import Register from "./pages/Register/Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { TaskProvider } from "./provider/TaskProvider";
 import "./App.css";
+import PrivateRoutes from "./components/PrivateRoutes";
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
             <Route index element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/todo" element={<TodoPage />} />
+            <Route element={<PrivateRoutes />}>
+              <Route path="/todo" element={<TodoPage />} />
+            </Route>
           </Routes>
           <Footer />
         </BrowserRouter>

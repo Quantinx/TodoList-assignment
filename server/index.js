@@ -58,9 +58,8 @@ passport.use(
       //   .then(function (user) {
       //     return user;
       //   });
-      console.log(user);
       if (!user) {
-        console.log("wrong email ");
+        console.log("Wrong email ");
 
         return done(null, false, { message: "No user exists" });
       }
@@ -69,7 +68,7 @@ passport.use(
         user.hashedpassword
       );
       if (!matchedPassword) {
-        console.log("wrong password");
+        console.log("Wrong password");
 
         return done(null, false, { message: "Wrong password" });
       }
@@ -91,7 +90,7 @@ app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
 
   if (await findUserByEmail(email)) {
-    console.log("user already exists");
+    console.log("User already exists");
     return res.status(500).json("User already exists.");
   }
   const salt = await bcrypt.genSalt(10);
@@ -103,7 +102,6 @@ app.post("/register", async (req, res) => {
 
 app.get("/v1/todo", (req, res) => {
   if (req.isAuthenticated()) {
-    console.log(req.user.id);
     //Todo (lol ironic) migrate this code to the databasefunctions.js
     db.select()
       .from("todos")
@@ -140,7 +138,6 @@ app.post("/v1/todo/add", async (req, res) => {
       due_date: dueDate,
       completed,
     };
-    console.log(req.user.id);
     const { status, message } = await addTask(task, req.user.id);
     res.status(status).json(message);
   } else {
@@ -180,8 +177,6 @@ app.post("/v1/todo/filter", async (req, res) => {
   if (req.isAuthenticated()) {
     const { page, filter } = req.body;
     //allowing for validation later
-
-    console.log(req.user.id);
     const results = await filterTasks(req.user.id, page, filter);
     res.status(200).json(results);
   } else {

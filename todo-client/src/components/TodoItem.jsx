@@ -6,7 +6,6 @@ export default function TodoItem({ task }) {
 
   function openMore() {
     setShowMore(true);
-    console.log("element clicked");
   }
 
   function closeMore() {
@@ -18,7 +17,7 @@ export default function TodoItem({ task }) {
       <li className="todo-item" onClick={openMore}>
         <div>
           <input type="checkbox" defaultChecked={task.completed} />
-          <a>{task.taskname}</a>
+          <a>{task.title}</a>
         </div>
       </li>
       <MoreInfo task={task} visible={showMore} onClose={closeMore} />
