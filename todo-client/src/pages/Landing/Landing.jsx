@@ -7,12 +7,12 @@ function Landing() {
       <main className={styles.landing}>
         <h1>A simple ToDo list to manage daily routine.</h1>
         <h2>You are always ready to plan the day!</h2>
-        <nav className={styles.landingBtnContainer}>
+        <nav className={styles.landing__BtnContainer}>
           <Link to="/login">
-            <button className={styles.landingBtnLogin}>log in</button>
+            <button className={styles.landing__BtnLogin}>log in</button>
           </Link>
           <Link to="/register">
-            <button className={styles.landingBtnCreate}>
+            <button className={styles.landing__BtnCreate}>
               create an account
             </button>
           </Link>

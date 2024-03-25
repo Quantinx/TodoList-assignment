@@ -6,6 +6,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { TaskProvider } from "./provider/TaskProvider";
+import "./App.css";
 
 function App() {
   return (

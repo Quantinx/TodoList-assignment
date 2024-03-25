@@ -1,30 +1,16 @@
-.landing .landingBtnContainer {
+.landing,
+.landing__BtnContainer {
+  margin: 4em 1em;
   display: flex;
   align-items: center;
-  padding-top: 10px;
   flex-direction: column;
-  width: 100%;
 }
-.landingBtnContainer {
-  margin: 5em auto;
+.landing__BtnContainer {
   gap: 2em;
 }
-.landingBtnLogin {
+.landing__BtnLogin {
   background-color: var(--clr-cta-primary);
 }
-.landingBtnCreate {
+.landing__BtnCreate {
   background-color: var(--clr-cta-secondary);
 }
-
-/* .landingBtn:hover {
-  box-shadow: inset 0 -10px 10px rgba(0, 15, 2, 0.2);
-  background-color: var(--clr-cta-secondary);
-  transition: 500ms;
-} */
-/* @media (max-width: 64em) {
-  .landingBtnLogin,
-  .landingBtnCreate {
-    width: 6.5em;
-    height: 2em;
-  }
-} */
