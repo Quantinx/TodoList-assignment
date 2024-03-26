@@ -1,11 +1,13 @@
+.todo__container {
+  border: 2px solid blue;
+}
 .todo__header {
   margin: 0.5em 1em;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-@media (min-width: 45em) {
-  .todo__header {
-    margin: 0.5em 10em;
-  }
+
+.todo__list {
+  border: 2px solid red;
 }
