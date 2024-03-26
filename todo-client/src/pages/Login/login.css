@@ -2,8 +2,6 @@
   text-align: center;
   width: 100%;
   margin-bottom: 20px;
-  /* padding: 2vw 1vw;
-  border-radius: 10px 10px 0 0; */
   font-size: 2rem;
 }
 
@@ -11,25 +9,17 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  /* margin: auto; */
   width: 100%;
   gap: 25px;
-  /* padding: 2vw 1vw;
-  border-radius: 0 0 10px 10px; */
 }
 
 .showpassword_box {
   display: flex;
-  /* margin-top: 25px; */
 }
 .showpassword_box span {
   margin-left: 10px;
   font-size: 18px;
 }
-/* .box input[type="checkbox"] {
-  width: 16px;
-  margin-right: 5px;
-} */
 
 /* NEW css */
 
@@ -76,5 +66,4 @@
   font-weight: 700;
   letter-spacing: 0.05rem;
   text-transform: uppercase;
-  /* margin-bottom: 20px; */
 }

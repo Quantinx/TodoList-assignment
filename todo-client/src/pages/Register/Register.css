@@ -11,8 +11,6 @@
   text-align: center;
   width: 100%;
   margin-bottom: 20px;
-  /* padding: 2vw 1vw;
-  border-radius: 10px 10px 0 0; */
   font-size: 2rem;
 }
 
@@ -22,17 +20,9 @@
   flex-direction: column;
   width: 100%;
   gap: 25px;
-  /* padding: 2vw 1vw;
-  border-radius: 0 0 10px 10px; */
 }
 
 .register-form-input {
-  /* border: 1px solid rgb(172, 171, 171);
-  border-radius: 10px;
-  padding: 1vw 1vw;
-  outline: none;
-  margin: 5px;
-} */
   width: 22em;
   padding: 10px;
   border: 1.5px solid var(--clr-cta-primary);
@@ -48,10 +38,7 @@
   margin-left: 10px;
   font-size: 18px;
 }
-/* .register-form-p {
-  margin-left: 10px;
-  font-size: 18px;
-} */
+
 .register-form-checkbox {
   width: 16px;
 }
