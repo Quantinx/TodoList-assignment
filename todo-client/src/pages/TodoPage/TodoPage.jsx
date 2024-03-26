@@ -108,7 +108,9 @@ export default function TodoPage() {
           <Filter />
         </div>
         <div className={styles.todo__list}>
-          {taskItems ? (
+          {!taskItems || taskItems.length === 0 ? (
+            <div>No data found</div>
+          ) : ( 
             <ul>
               {taskItems.map((task) => {
                 return (
@@ -116,8 +118,6 @@ export default function TodoPage() {
                 );
               })}
             </ul>
-          ) : (
-            <div>No data found</div>
           )}
           <AddTask
             visible={addTaskVisible}
