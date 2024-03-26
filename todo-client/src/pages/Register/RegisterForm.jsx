@@ -41,7 +41,6 @@ export default function RegisterForm() {
       },
       body: JSON.stringify(payload),
     });
-    const data = await res.json();
     setRegisterStatus(res.status);
   }
 
