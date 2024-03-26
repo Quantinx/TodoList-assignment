@@ -1,5 +1,4 @@
-import { useState, useContext } from "react";
-import { TaskProviderContext } from "../../provider/TaskProvider";
+import { useState} from "react";
 import {
   convertLocaltimeStampToUTC,
   convertTimestampToDatetimeLocal,
@@ -13,7 +12,6 @@ export default function MoreInfo({ task, visible, onClose, updatePage }) {
   const [date, setDate] = useState(localtimestamp);
   const [response, setResponse] = useState();
   const [updateStatus, setUpdateStatus] = useState();
-  const { updateItem } = useContext(TaskProviderContext);
 
   const handleNameChange = (e) => {
     setName(e.target.value);

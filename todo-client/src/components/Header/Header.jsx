@@ -7,9 +7,6 @@ export default function Header() {
       <div className="header">
         <h1 className="header__title">TASKIFY</h1>
         <GiNotebook className="header-icon" />
-        {/* <p className="header__subtitle">
-          - Simplify Your To-Do's, Amplify Your Productivity
-        </p> */}
       </div>
     </header>
   );

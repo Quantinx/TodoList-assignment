@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MoreInfo from "./MoreInfo/MoreInfo";
+import MoreInfo from "../MoreInfo/MoreInfo";
 import "./ToDoItem.css";
 
 export default function TodoItem({ task, updatePage }) {

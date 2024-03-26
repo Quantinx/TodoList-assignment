@@ -10,7 +10,7 @@ exports.up = function (knex) {
     .createTable("todos", function (table) {
       table.uuid("id").defaultTo(knex.raw("uuid_generate_v4()")).primary();
       table.string("title").notNullable();
-      table.string("description").notNullable(); // Added description column
+      table.string("description").notNullable();
       table.timestamp("due_date").defaultTo(knex.fn.now());
       table.boolean("completed").defaultTo(false);
       table

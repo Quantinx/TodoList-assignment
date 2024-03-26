@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { TaskProviderContext } from "../../provider/TaskProvider";
+import React, { useState} from "react";
 import { convertLocaltimeStampToUTC } from "../../helpers/datetime";
 import "./AddTask.css";
 
@@ -9,7 +8,6 @@ export default function AddTask({ visible, onClose, updatePage }) {
   const [date, setDate] = useState("");
   const [addStatus, setAddStatus] = useState();
   const [response, setResponse] = useState();
-  const { addItem } = useContext(TaskProviderContext);
 
   const handleNameChange = (e) => {
     setName(e.target.value);

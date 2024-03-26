@@ -1,5 +1,4 @@
 /* Reset */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -52,7 +51,7 @@ h1 {
 h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  line-height: 3rem; /* 183.333% */
+  line-height: 3rem;
   margin-top: 1.5em;
 }
 
@@ -60,7 +59,7 @@ p,
 strong {
   font-size: 1.3rem;
   font-weight: 400;
-  line-height: 2.75rem; /* 244.444% */
+  line-height: 2.75rem;
 }
 
 strong {
@@ -95,12 +94,8 @@ button {
   letter-spacing: 0.05rem;
   text-transform: uppercase;
 }
+
 /* Layout */
-
-/* @media */
-
-/*Joe's styling for TodoPage
-It doesn't connect to 'on click' to buttons */
 input,
 textarea {
   padding: 1rem 0.5rem;

@@ -9,16 +9,13 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm();
 
-  const [registerResponse, setRegisterResponse] = useState();
   const [registerStatus, setRegisterStatus] = useState();
   const [statusMessage, setStatusMessage] = useState();
 
   useEffect(() => {
     if (registerStatus === 201) {
-      //logic for success
       setStatusMessage("User created successfully");
       navigate("/login");
       return;
@@ -27,12 +24,10 @@ export default function RegisterForm() {
     if (registerStatus === 500) {
       setStatusMessage("User with this name already exists");
       return;
-      //logic for failure
     }
     if (registerStatus) {
       setStatusMessage("Unknown error");
     }
-    //catch all logic
   }, [registerStatus]);
 
   async function sendData(payload) {
@@ -48,7 +43,6 @@ export default function RegisterForm() {
     });
     const data = await res.json();
     setRegisterStatus(res.status);
-    setRegisterResponse(data);
   }
 
   const onSubmit = (data) => {
@@ -64,19 +58,6 @@ export default function RegisterForm() {
       passwordInput.type = "password";
     }
   }
-
-  function showPassword2(clicked) {
-    const password2Input = document.getElementById("password2");
-
-    if (clicked.target.checked) {
-      password2Input.type = "text";
-    } else {
-      password2Input.type = "password";
-    }
-  }
-
-  const password = watch("password", "");
-  // const password2 = watch("password2", "");
 
   return (
     <div className="register-form-container">
@@ -125,31 +106,6 @@ export default function RegisterForm() {
             <span className="register-form-p">Show password</span>
           </div>
         </div>
-        {/* <div className="register-form-group">
-          <input
-            className="register-form-input"
-            id="password2"
-            type="password"
-            {...register("password2")}
-            placeholder="Enter password again"
-          />
-          <div className="register-form-show-password-box space">
-            <input
-              type="checkbox"
-              className="register-form-checkbox"
-              onClick={showPassword2}
-            />
-            <span className="register-form-p">Show password</span>
-          </div>
-        </div>
-        {password !== password2 && password2.length > 0 && (
-          <p
-            className="register-form-password-no-match"
-            style={{ color: "red" }}
-          >
-            Passwords do not match!
-          </p>
-        )} */}
         <div className="register-form-group">
           <input
             className="register-form-submit-button"
