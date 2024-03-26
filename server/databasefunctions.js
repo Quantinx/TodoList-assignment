@@ -36,7 +36,7 @@ async function addTask(task, id) {
     await db("todos").insert({
       title: task.title,
       description: task.description,
-      due_date: task.dueDate,
+      due_date: task.due_date,
       completed: task.completed,
       user_id: id,
     });

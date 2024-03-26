@@ -138,6 +138,7 @@ app.post("/v1/todo/add", async (req, res) => {
       due_date: dueDate,
       completed,
     };
+    console.log(task);
     const { status, message } = await addTask(task, req.user.id);
     res.status(status).json(message);
   } else {
@@ -155,6 +156,8 @@ app.put("/v1/todo/update", async (req, res) => {
       due_date: dueDate,
       completed,
     };
+    console.log(task);
+    console.log(id);
     const { status, message } = await updateTask(task, id);
     res.status(status).json(message);
   } else {
