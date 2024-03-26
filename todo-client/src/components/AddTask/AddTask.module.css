@@ -1,0 +1,30 @@
+.more__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1;
+  padding: 5em 0;
+  background-color: #fcfdd4;
+}
+
+input,
+textarea {
+  border: 1px solid #139034;
+  padding: 1rem 0.5rem;
+  outline: none;
+  width: 23em;
+  border-radius: 0.625rem;
+  border: 3px solid #97ce9c;
+}
+
+.info__addTaskBtn {
+  background-color: var(--clr-cta-primary);
+  width: 8.5rem;
+  height: 3rem;
+}
+.info__closeBtn {
+  background-color: var(--clr-cta-secondary);
+  width: 8.5rem;
+  height: 3rem;
+}
