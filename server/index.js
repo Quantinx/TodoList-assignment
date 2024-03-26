@@ -109,6 +109,14 @@ app.get("/v1/todo", (req, res) => {
   }
 });
 
+app.get("/session", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.status(200).json("Authorized ");
+  } else {
+    res.status(401).json("Unauthorized");
+  }
+});
+
 app.post("/login", passport.authenticate("local"), (req, res) => {
   res.json("Welcome " + req.user.name);
 });

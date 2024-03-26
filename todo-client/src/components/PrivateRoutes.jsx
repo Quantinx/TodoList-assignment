@@ -1,6 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { TaskProviderContext } from "../provider/TaskProvider";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 const PrivateRoutes = () => {
   const { loggedIn, setLoggedIn } = useContext(TaskProviderContext);

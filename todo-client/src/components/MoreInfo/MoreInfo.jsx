@@ -5,7 +5,7 @@ import {
   convertTimestampToDatetimeLocal,
 } from "../../helpers/datetime";
 
-export default function MoreInfo({ task, visible, onClose }) {
+export default function MoreInfo({ task, visible, onClose, updatePage }) {
   const localtimestamp = convertTimestampToDatetimeLocal(task.due_date);
   const [name, setName] = useState(task.title);
   const [desc, setDesc] = useState(task.description);
@@ -53,7 +53,7 @@ export default function MoreInfo({ task, visible, onClose }) {
     });
     setUpdateStatus(res.status);
   }
-  function onSave() {
+  async function onSave() {
     if (name === "") {
       setResponse("Please enter a task name");
       return;
@@ -75,12 +75,15 @@ export default function MoreInfo({ task, visible, onClose }) {
       description: desc,
       dueDate: timestamp,
     };
-    sendData(payload);
+    await sendData(payload);
+    updatePage();
+    onClose();
   }
 
-  function deleteTask() {
+  async function deleteTask() {
     const payload = { id: task.id };
-    deleteData(payload);
+    await deleteData(payload);
+    updatePage();
   }
   return (
     <>

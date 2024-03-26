@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import "./login.css";
 import { TaskProviderContext } from "../../provider/TaskProvider";
 
@@ -36,6 +36,25 @@ export default function LoginForm() {
     }
     //catch all logic
   }, [loginStatus]);
+
+  useEffect(() => {
+    async function checkToken() {
+      const url = "http://localhost:8080/session";
+      const res = await fetch(url, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (res.status === 200) {
+        setLoggedIn(true);
+        navigate("/todo");
+      }
+    }
+    checkToken();
+  }, []);
 
   async function sendData(payload) {
     const url = "http://localhost:8080/login";

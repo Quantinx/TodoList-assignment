@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { TaskProviderContext } from "../../provider/TaskProvider";
 import { convertLocaltimeStampToUTC } from "../../helpers/datetime";
-export default function AddTask({ visible, onClose }) {
+export default function AddTask({ visible, onClose, updatePage }) {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [date, setDate] = useState("");
@@ -34,7 +34,7 @@ export default function AddTask({ visible, onClose }) {
     setAddStatus(res.status);
   }
 
-  function onAdd() {
+  async function onAdd() {
     if (name === "") {
       setResponse("Please enter a task name");
       return;
@@ -52,8 +52,9 @@ export default function AddTask({ visible, onClose }) {
     submit();
     const timestamp = convertLocaltimeStampToUTC(date);
     const payload = { title: name, description: desc, dueDate: timestamp };
-    sendData(payload);
+    await sendData(payload);
     onClose();
+    updatePage();
   }
 
   function submit() {
