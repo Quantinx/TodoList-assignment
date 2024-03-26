@@ -1,18 +1,16 @@
-import User from "../../components/User";
 import Filter from "../../components/Filter";
 import TodoItem from "../../components/TodoItem";
 import { useContext, useState } from "react";
 import { TaskProviderContext } from "../../provider/TaskProvider";
-import AddTaskBtn from "../../components/AddTaskBtn";
+import AddTaskBtn from "../../components/Buttons/AddTaskBtn";
 import AddTask from "../../components/AddTask/AddTask";
-import LogOutBtn from "../../components/LogOutBtn";
+import LogOutBtn from "../../components/Buttons/LogOutBtn";
 import styles from "./TodoPage.module.css";
 import { useEffect } from "react";
-import { set } from "react-hook-form";
-import LoadMoreTasksButton from "../../components/LoadMoreTasksButton";
+import LoadMoreTasksButton from "../../components/Buttons/LoadMoreTasksButton";
 
 export default function TodoPage() {
-  const { taskItems, setTaskItems, loggedIn, setLoggedIn } =
+  const { taskItems, setTaskItems, setLoggedIn } =
     useContext(TaskProviderContext);
   const [addTaskVisible, setTaskVisible] = useState(false);
   const [page, setPage] = useState(1);
@@ -102,7 +100,6 @@ export default function TodoPage() {
 
   return (
     <div>
-      <User />
       <LogOutBtn onLogOut={logOut} />
       <main className={styles.todo__container}>
         <h1>Your planning:</h1>

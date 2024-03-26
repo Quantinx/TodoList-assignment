@@ -1,5 +1,4 @@
-import { useState, createContext, useEffect } from "react";
-import { tasks } from "../testdata";
+import { useState, createContext } from "react";
 export const TaskProviderContext = createContext();
 
 export const TaskProvider = ({ children }) => {
@@ -24,7 +23,7 @@ export const TaskProvider = ({ children }) => {
   }
 
   function addItem(title, desc, date) {
-    const newID = taskItems.length || 1; // all references to pushing ID can be removed when backend is added as backend will auto add ID
+    const newID = taskItems.length || 1; 
     const data = {
       id: newID,
       taskname: title,

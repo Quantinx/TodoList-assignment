@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { TaskProviderContext } from "../../provider/TaskProvider";
 import { convertLocaltimeStampToUTC } from "../../helpers/datetime";
 export default function AddTask({ visible, onClose, updatePage }) {
   const [name, setName] = useState("");
@@ -7,7 +6,7 @@ export default function AddTask({ visible, onClose, updatePage }) {
   const [date, setDate] = useState("");
   const [addStatus, setAddStatus] = useState();
   const [response, setResponse] = useState();
-  const { addItem } = useContext(TaskProviderContext);
+
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -96,7 +95,6 @@ export default function AddTask({ visible, onClose, updatePage }) {
           placeholder="Due Date"
           required
         ></input>
-
         <div>{response}</div>
         <button onClick={onAdd}>Add new task</button>
       </div>

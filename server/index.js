@@ -1,5 +1,3 @@
-const pw = process.env.HI_G1_EP_PW; //database password
-
 const PORT = 8080;
 const {
   addUser,
@@ -50,14 +48,6 @@ passport.use(
     },
     async (email, password, done) => {
       const user = await findUserByEmail(email);
-      // const user = await db
-      //   .select("id", "email", "hashedpassword")
-      //   .from("users")
-      //   .where("email", email)
-      //   .first()
-      //   .then(function (user) {
-      //     return user;
-      //   });
       if (!user) {
         return done(null, false, { message: "No user exists" });
       }
@@ -97,7 +87,6 @@ app.post("/register", async (req, res) => {
 
 app.get("/v1/todo", (req, res) => {
   if (req.isAuthenticated()) {
-    //Todo (lol ironic) migrate this code to the databasefunctions.js
     db.select()
       .from("todos")
       .where("user_id", req.user.id)

@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect, useContext } from "react";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
 import { TaskProviderContext } from "../../provider/TaskProvider";
 
 export default function LoginForm() {
-  const { loggedIn, setLoggedIn } = useContext(TaskProviderContext);
+  const { setLoggedIn } = useContext(TaskProviderContext);
 
   const navigate = useNavigate();
   const {
@@ -19,22 +19,19 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (loginStatus === 200) {
-      //logic for success
       setStatusMessage("User login successfully");
       setLoggedIn(true);
       navigate("/todo");
       return;
     }
-
     if (loginStatus === 401) {
       setStatusMessage("Login failed");
       return;
-      //logic for failure
     }
     if (loginStatus) {
       setStatusMessage("Unknown error");
     }
-    //catch all logic
+
   }, [loginStatus]);
 
   useEffect(() => {
