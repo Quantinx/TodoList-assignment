@@ -5,14 +5,13 @@ import {
   convertTimestampToDatetimeLocal,
 } from "../../helpers/datetime";
 
-export default function MoreInfo({ task, visible, onClose }) {
+export default function MoreInfo({ task, visible, onClose, updatePage }) {
   const localtimestamp = convertTimestampToDatetimeLocal(task.due_date);
-  console.log(task.due_date + " RAW");
-  console.log(convertLocaltimeStampToUTC(localtimestamp) + " PROCESSED");
   const [name, setName] = useState(task.title);
   const [desc, setDesc] = useState(task.description);
   const [date, setDate] = useState(localtimestamp);
   const [response, setResponse] = useState();
+  const [updateStatus, setUpdateStatus] = useState();
   const { updateItem } = useContext(TaskProviderContext);
 
   const handleNameChange = (e) => {
@@ -27,7 +26,34 @@ export default function MoreInfo({ task, visible, onClose }) {
     setDate(e.target.value);
   };
 
-  function onSave() {
+  async function sendData(payload) {
+    const url = "http://localhost:8080/v1/todo/update";
+    const res = await fetch(url, {
+      method: "PUT",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    setUpdateStatus(res.status);
+  }
+
+  async function deleteData(payload) {
+    const url = "http://localhost:8080/v1/todo/delete";
+    const res = await fetch(url, {
+      method: "DELETE",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    setUpdateStatus(res.status);
+  }
+  async function onSave() {
     if (name === "") {
       setResponse("Please enter a task name");
       return;
@@ -42,10 +68,23 @@ export default function MoreInfo({ task, visible, onClose }) {
       return;
     }
 
-    const res = updateItem(task.id, name, desc, date, task.completed);
-    setResponse(res);
+    const timestamp = convertLocaltimeStampToUTC(date);
+    const payload = {
+      id: task.id,
+      title: name,
+      description: desc,
+      dueDate: timestamp,
+    };
+    await sendData(payload);
+    updatePage();
+    onClose();
   }
 
+  async function deleteTask() {
+    const payload = { id: task.id };
+    await deleteData(payload);
+    updatePage();
+  }
   return (
     <>
       <div
@@ -78,7 +117,7 @@ export default function MoreInfo({ task, visible, onClose }) {
         ></input>
         <div> {response}</div>
         <button onClick={onSave}>Save</button>
-        <button>Delete</button>
+        <button onClick={deleteTask}>Delete</button>
       </div>
     </>
   );

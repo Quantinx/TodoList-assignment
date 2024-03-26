@@ -36,7 +36,7 @@ app.use(
     secret: "secret",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, sameSite: "none" }, //never do this in prod, however localhost has no https
+    cookie: { secure: false, sameSite: "lax" }, //never do this in prod, however localhost has no https
   })
 );
 
@@ -59,8 +59,6 @@ passport.use(
       //     return user;
       //   });
       if (!user) {
-        console.log("Wrong email ");
-
         return done(null, false, { message: "No user exists" });
       }
       const matchedPassword = await bcrypt.compare(
@@ -68,8 +66,6 @@ passport.use(
         user.hashedpassword
       );
       if (!matchedPassword) {
-        console.log("Wrong password");
-
         return done(null, false, { message: "Wrong password" });
       }
       return done(null, user);
@@ -90,7 +86,6 @@ app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
 
   if (await findUserByEmail(email)) {
-    console.log("User already exists");
     return res.status(500).json("User already exists.");
   }
   const salt = await bcrypt.genSalt(10);
@@ -114,8 +109,15 @@ app.get("/v1/todo", (req, res) => {
   }
 });
 
+app.get("/session", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.status(200).json("Authorized ");
+  } else {
+    res.status(401).json("Unauthorized");
+  }
+});
+
 app.post("/login", passport.authenticate("local"), (req, res) => {
-  console.log("Successful login for: " + req.user.email);
   res.json("Welcome " + req.user.name);
 });
 

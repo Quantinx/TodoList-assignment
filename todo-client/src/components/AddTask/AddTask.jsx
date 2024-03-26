@@ -1,11 +1,15 @@
 import React, { useState, useContext } from "react";
 import { TaskProviderContext } from "../../provider/TaskProvider";
+
 import styles from "./AddTask.module.css";
 
-export default function AddTask({ visible, onClose }) {
+import { convertLocaltimeStampToUTC } from "../../helpers/datetime";
+export default function AddTask({ visible, onClose, updatePage }) {
+
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [date, setDate] = useState("");
+  const [addStatus, setAddStatus] = useState();
   const [response, setResponse] = useState();
   const { addItem } = useContext(TaskProviderContext);
 
@@ -20,8 +24,21 @@ export default function AddTask({ visible, onClose }) {
   const handleDateChange = (e) => {
     setDate(e.target.value);
   };
+  async function sendData(payload) {
+    const url = "http://localhost:8080/v1/todo/add";
+    const res = await fetch(url, {
+      method: "POST",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    setAddStatus(res.status);
+  }
 
-  function onAdd() {
+  async function onAdd() {
     if (name === "") {
       setResponse("Please enter a task name");
       return;
@@ -37,10 +54,11 @@ export default function AddTask({ visible, onClose }) {
     }
 
     submit();
-
-    const res = addItem(name, desc, date);
-    setResponse(res);
+    const timestamp = convertLocaltimeStampToUTC(date);
+    const payload = { title: name, description: desc, dueDate: timestamp };
+    await sendData(payload);
     onClose();
+    updatePage();
   }
 
   function submit() {
@@ -74,9 +92,10 @@ export default function AddTask({ visible, onClose }) {
         ></textarea>
         <input
           value={date}
-          type="date"
+          type="datetime-local"
           onChange={handleDateChange}
           placeholder="Due Date"
+          required
         ></input>
         <div>{response}</div>
         <button className={styles.info__addTaskBtn} onClick={onAdd}>

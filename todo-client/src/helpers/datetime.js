@@ -19,7 +19,7 @@ export function convertLocaltimeStampToUTC(datetimeLocal) {
   // Create a new Date object in local time
   const localDate = new Date(datetimeLocal);
 
-  // Get the UTC values
+  // Get UTC values
   const utcYear = localDate.getUTCFullYear();
   const utcMonth = String(localDate.getUTCMonth() + 1).padStart(2, "0"); // Month is 0-indexed
   const utcDay = String(localDate.getUTCDate()).padStart(2, "0");
@@ -31,8 +31,32 @@ export function convertLocaltimeStampToUTC(datetimeLocal) {
     "0"
   );
 
+  // Adjust for local timezone offset
+  const offsetMinutes = localDate.getTimezoneOffset();
+  const adjustedDate = new Date(
+    Date.UTC(
+      utcYear,
+      utcMonth - 1, // Month is 0-indexed
+      utcDay,
+      utcHours,
+      utcMinutes - offsetMinutes, // Adjust for timezone offset
+      utcSeconds,
+      utcMilliseconds
+    )
+  );
+
   // Create the timestamp in the original format
-  const timestamp = `${utcYear}-${utcMonth}-${utcDay} ${utcHours}:${utcMinutes}:${utcSeconds}.${utcMilliseconds}`;
+  const timestamp = `${adjustedDate.getUTCFullYear()}-${String(
+    adjustedDate.getUTCMonth() + 1
+  ).padStart(2, "0")}-${String(adjustedDate.getUTCDate()).padStart(
+    2,
+    "0"
+  )} ${String(adjustedDate.getUTCHours()).padStart(2, "0")}:${String(
+    adjustedDate.getUTCMinutes()
+  ).padStart(2, "0")}:${String(adjustedDate.getUTCSeconds()).padStart(
+    2,
+    "0"
+  )}.${String(adjustedDate.getUTCMilliseconds()).padStart(3, "0")}`;
 
   return timestamp;
 }

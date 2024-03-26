@@ -1,10 +1,10 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { tasks } from "../testdata";
 export const TaskProviderContext = createContext();
 
 export const TaskProvider = ({ children }) => {
   const [taskItems, setTaskItems] = useState();
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   function updateItem(id, title, desc, date, comp) {
     const updatedRow = taskItems.map((task) =>
