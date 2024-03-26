@@ -1,5 +1,6 @@
 import { useState } from "react";
 import MoreInfo from "./MoreInfo/MoreInfo";
+import "./ToDoItem.css";
 
 export default function TodoItem({ task, updatePage }) {
   const [showMore, setShowMore] = useState(false);
@@ -36,15 +37,16 @@ export default function TodoItem({ task, updatePage }) {
 
   return (
     <>
-      <li className="todo-item" onClick={openMore}>
+      <li className="box-todo-item" onClick={openMore}>
         <div>
           <input
+            className="todo-item-checkbox"
             type="checkbox"
             onChange={taskDone}
             onClick={(e) => e.stopPropagation()}
             defaultChecked={task.completed}
           />
-          <a>{task.title}</a>
+          <a className="tasktitle">{task.title}</a>
         </div>
       </li>
       <MoreInfo

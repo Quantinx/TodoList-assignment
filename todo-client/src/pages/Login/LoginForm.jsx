@@ -108,12 +108,8 @@ export default function LoginForm() {
             placeholder="Enter your password here"
           />
           <div className="showpassword-box space">
-            <input
-              className="login-form-checkbox"
-              type="checkbox"
-              onClick={showPassword}
-            />
-            <span>Show password</span>
+            <input className="" type="checkbox" onClick={showPassword} />
+            <div>Show password</div>
           </div>
         </div>
         <div>{statusMessage}</div>

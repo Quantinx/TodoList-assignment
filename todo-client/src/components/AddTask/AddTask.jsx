@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { TaskProviderContext } from "../../provider/TaskProvider";
 import { convertLocaltimeStampToUTC } from "../../helpers/datetime";
+import "./AddTask.css";
+
 export default function AddTask({ visible, onClose, updatePage }) {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -72,7 +74,7 @@ export default function AddTask({ visible, onClose, updatePage }) {
           visibility: visible ? "visible" : "hidden",
         }}
       >
-        <h3>Add new task</h3>
+        <h1>Create a new task:</h1>
         <button className="info-close-btn" onClick={onClose}>
           x
         </button>
@@ -96,9 +98,10 @@ export default function AddTask({ visible, onClose, updatePage }) {
           placeholder="Due Date"
           required
         ></input>
-
         <div>{response}</div>
-        <button onClick={onAdd}>Add new task</button>
+        <button className="info-save-btn" onClick={onAdd}>
+          save
+        </button>
       </div>
     </>
   );

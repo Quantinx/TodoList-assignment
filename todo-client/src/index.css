@@ -103,10 +103,11 @@ button {
 It doesn't connect to 'on click' to buttons */
 input,
 textarea {
-  border: 1px solid rgb(172, 171, 171);
-  border-radius: 10px;
-  padding: 0.5rem 0.5rem;
+  padding: 1rem 0.5rem;
   outline: none;
+  width: 23em;
+  border-radius: 0.625rem;
+  border: 3px solid #97ce9c;
 }
 
 .more-info {
@@ -119,11 +120,6 @@ textarea {
   gap: 1rem;
   z-index: 1;
   width: 100%;
-  background-color: var(--clr-primary);
+  height: 100%;
   padding: 1rem;
-}
-
-.info-close-btn {
-  height: 20px;
-  width: 20px;
 }

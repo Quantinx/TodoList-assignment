@@ -4,6 +4,7 @@ import {
   convertLocaltimeStampToUTC,
   convertTimestampToDatetimeLocal,
 } from "../../helpers/datetime";
+import "./MoreInfo.css";
 
 export default function MoreInfo({ task, visible, onClose, updatePage }) {
   const localtimestamp = convertTimestampToDatetimeLocal(task.due_date);
@@ -116,8 +117,12 @@ export default function MoreInfo({ task, visible, onClose, updatePage }) {
           placeholder="Due Date"
         ></input>
         <div> {response}</div>
-        <button onClick={onSave}>Save</button>
-        <button onClick={deleteTask}>Delete</button>
+        <button onClick={onSave} className="moreInfo-save-btn">
+          Save
+        </button>
+        <button onClick={deleteTask} className="moreInfo-delete-btn">
+          Delete
+        </button>
       </div>
     </>
   );

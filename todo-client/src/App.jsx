@@ -14,16 +14,18 @@ function App() {
     <>
       <TaskProvider>
         <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route index element={<Landing />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route element={<PrivateRoutes />}>
-              <Route path="/todo" element={<TodoPage />} />
-            </Route>
-          </Routes>
-          <Footer />
+          <div className="wrapper">
+            <Header />
+            <Routes>
+              <Route index element={<Landing />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route element={<PrivateRoutes />}>
+                <Route path="/todo" element={<TodoPage />} />
+              </Route>
+            </Routes>
+            <Footer />
+          </div>
         </BrowserRouter>
       </TaskProvider>
     </>

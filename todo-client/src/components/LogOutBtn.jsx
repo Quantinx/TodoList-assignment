@@ -1,3 +1,11 @@
+import "./LogOutBtn.css";
+
 export default function LogOutBtn({ onLogOut }) {
-  return <button onClick={onLogOut}>Logout</button>;
+  return (
+    <div className="logoutbtn-box">
+      <button className="logoutbtn" onClick={onLogOut}>
+        Logout
+      </button>
+    </div>
+  );
 }

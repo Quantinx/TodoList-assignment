@@ -1,0 +1,10 @@
+.moreInfo-save-btn {
+  background-color: var(--clr-cta-primary);
+  width: 8.5rem;
+  height: 3rem;
+}
+.moreInfo-delete-btn {
+  background-color: var(--clr-warning);
+  width: 8.5rem;
+  height: 3rem;
+}

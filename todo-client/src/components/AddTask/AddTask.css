@@ -1,0 +1,21 @@
+.more-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1;
+  padding: 5em 0;
+  background-color: #fcfdd4;
+}
+
+.info-save-btn {
+  background-color: var(--clr-cta-primary);
+  width: 8.5rem;
+  height: 3rem;
+}
+
+.info-close-btn {
+  background-color: var(--clr-cta-secondary);
+  width: 1.5rem;
+  height: 1.5rem;
+}

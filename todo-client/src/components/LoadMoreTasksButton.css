@@ -1,5 +1,6 @@
 .load-more-tasks-button {
-  padding: 1rem 2rem;
-  font-size: 1.5rem;
-  border-radius: 15px;
+  background-color: var(--clr-cta-primary);
+  width: 8.5rem;
+  height: 3rem;
+  margin: 10px 0;
 }
