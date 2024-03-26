@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { set } from "react-hook-form";
 
 export default function TodoPage() {
-  const { taskItems, setTaskItems } = useContext(TaskProviderContext);
+  const { taskItems, setTaskItems, loggedIn } = useContext(TaskProviderContext);
   const [addTaskVisible, setTaskVisible] = useState(false);
   const [page, setPage] = useState(1);
 
