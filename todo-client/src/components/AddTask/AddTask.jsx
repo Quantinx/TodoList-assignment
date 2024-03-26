@@ -31,7 +31,6 @@ export default function AddTask({ visible, onClose }) {
       },
       body: JSON.stringify(payload),
     });
-    console.log("Res :" + res.status);
     setAddStatus(res.status);
   }
 
@@ -53,7 +52,6 @@ export default function AddTask({ visible, onClose }) {
     submit();
     const timestamp = convertLocaltimeStampToUTC(date);
     const payload = { title: name, description: desc, dueDate: timestamp };
-    console.log("send payload " + JSON.stringify(payload));
     sendData(payload);
     onClose();
   }

@@ -8,6 +8,7 @@ import AddTask from "../../components/AddTask/AddTask";
 import styles from "./TodoPage.module.css";
 import { useEffect } from "react";
 import { set } from "react-hook-form";
+import LoadMoreTasksButton from "../../components/LoadMoreTasksButton";
 
 export default function TodoPage() {
   const { taskItems, setTaskItems, loggedIn } = useContext(TaskProviderContext);
@@ -21,22 +22,6 @@ export default function TodoPage() {
     };
 
     sendData(payload);
-
-    async function sendData(payload) {
-      const url = "http://localhost:8080/v1/todo/filter";
-      const res = await fetch(url, {
-        method: "POST",
-        withCredentials: true,
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      console.log(data);
-      setTaskItems(data);
-    }
   }, []);
 
   function showAddTask() {
@@ -47,6 +32,9 @@ export default function TodoPage() {
     setTaskVisible(false);
   }
 
+  function loadMore() {
+    setPage(page + 1);
+  }
   return (
     <div>
       <main className={styles.todo__container}>
@@ -69,6 +57,7 @@ export default function TodoPage() {
           )}
           <AddTask visible={addTaskVisible} onClose={hideAddTask} />
         </div>
+        <LoadMoreTasksButton onClick={loadMore} />
       </main>
     </div>
   );

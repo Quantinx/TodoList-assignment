@@ -40,8 +40,6 @@ async function addTask(task, id) {
       completed: task.completed,
       user_id: id,
     });
-
-    console.log("new task added to db");
     return { status: 200, message: "Successfully added task" };
   } catch (error) {
     console.error("Failed to add task:", error);
@@ -50,17 +48,12 @@ async function addTask(task, id) {
 }
 
 async function updateTask(task, id) {
-  console.log(task);
-  console.log(id);
-
   const { error: idError } = uuidSchema.validate(id);
   if (idError) {
-    console.log("Invalid UUID format");
     return { status: 500, message: "Invalid ID" };
   }
   try {
     await db("todos").where("id", id).update(task);
-    console.log("Task updated successfully");
     return { status: 200, message: "Task updated successfully" };
   } catch (error) {
     console.error("Error updating task:", error);
@@ -71,14 +64,11 @@ async function updateTask(task, id) {
 async function deleteTask(id) {
   const { error: idError } = uuidSchema.validate(id);
   if (idError) {
-    console.log("Invalid UUID format");
     return { status: 400, message: "Invalid ID" };
   }
 
   try {
     await db("todos").where("id", id).delete();
-
-    console.log("Task deleted successfully");
     return { status: 200, message: "Task deleted successfully" };
   } catch (error) {
     console.error("Error deleting task:", error);

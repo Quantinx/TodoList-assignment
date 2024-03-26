@@ -37,7 +37,6 @@ export default function MoreInfo({ task, visible, onClose }) {
       },
       body: JSON.stringify(payload),
     });
-    console.log("Res :" + res.status);
     setUpdateStatus(res.status);
   }
 
@@ -52,7 +51,6 @@ export default function MoreInfo({ task, visible, onClose }) {
       },
       body: JSON.stringify(payload),
     });
-    console.log("Res :" + res.status);
     setUpdateStatus(res.status);
   }
   function onSave() {
@@ -77,7 +75,6 @@ export default function MoreInfo({ task, visible, onClose }) {
       description: desc,
       dueDate: timestamp,
     };
-    console.log("send payload " + JSON.stringify(payload));
     sendData(payload);
   }
 

@@ -48,7 +48,6 @@ export default function LoginForm() {
       },
       body: JSON.stringify(payload),
     });
-    console.log("Res :" + res.status);
     setLoginStatus(res.status);
   }
 
