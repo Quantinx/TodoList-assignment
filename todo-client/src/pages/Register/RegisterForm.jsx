@@ -22,7 +22,7 @@ export default function RegisterForm() {
     }
 
     if (registerStatus === 500) {
-      setStatusMessage("User with this name already exists");
+      setStatusMessage("User with this email already exists");
       return;
     }
     if (registerStatus) {
