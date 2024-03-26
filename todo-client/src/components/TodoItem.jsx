@@ -17,7 +17,11 @@ export default function TodoItem({ task }) {
       <li className="todo-item" onClick={openMore}>
         <div>
           <input type="checkbox" defaultChecked={task.completed} />
-          <a>{task.title}</a>
+          <a
+            style={{ textDecoration: task.completed ? "line-through" : "none" }}
+          >
+            {task.title}
+          </a>
         </div>
       </li>
       <MoreInfo task={task} visible={showMore} onClose={closeMore} />
