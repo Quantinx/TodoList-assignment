@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { TaskProviderContext } from "../../provider/TaskProvider";
+import styles from "./AddTask.module.css";
 
 export default function AddTask({ visible, onClose }) {
   const [name, setName] = useState("");
@@ -52,15 +53,12 @@ export default function AddTask({ visible, onClose }) {
   return (
     <>
       <div
-        className="more-info"
+        className={styles.more__info}
         style={{
           visibility: visible ? "visible" : "hidden",
         }}
       >
-        <h3>Add new task</h3>
-        <button className="info-close-btn" onClick={onClose}>
-          x
-        </button>
+        <h1>Create a new task:</h1>
         <input
           type="text"
           className="info-name-input"
@@ -80,9 +78,13 @@ export default function AddTask({ visible, onClose }) {
           onChange={handleDateChange}
           placeholder="Due Date"
         ></input>
-
         <div>{response}</div>
-        <button onClick={onAdd}>Add new task</button>
+        <button className={styles.info__addTaskBtn} onClick={onAdd}>
+          save
+        </button>{" "}
+        <button className={styles.info__closeBtn} onClick={onClose}>
+          cancel
+        </button>
       </div>
     </>
   );
