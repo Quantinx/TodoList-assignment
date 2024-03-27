@@ -106,10 +106,9 @@ export default function LoginForm() {
           />
           <div className="showpassword-box space">
             <input className="" type="checkbox" onClick={showPassword} />
-            <div>Show password</div>
+            <span>Show password</span>
           </div>
         </div>
-        <div>{statusMessage}</div>
         <div className="form-group">
           <input
             className="login-form-login"
@@ -117,6 +116,7 @@ export default function LoginForm() {
             value={"Log in"}
           />
         </div>
+        <div>{statusMessage}</div>
         <Link to="/register">
           <button className="login-form-no-account">I have no account</button>
         </Link>

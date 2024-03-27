@@ -100,9 +100,12 @@ input,
 textarea {
   padding: 1rem 0.5rem;
   outline: none;
-  width: 23em;
   border-radius: 0.625rem;
   border: 3px solid #97ce9c;
+}
+
+span {
+  margin-left: 0.5rem;
 }
 
 .more-info {

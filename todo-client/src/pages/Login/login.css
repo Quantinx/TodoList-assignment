@@ -24,7 +24,6 @@
 /* NEW css */
 
 .container {
-  height: 70vh;
   margin: auto;
   display: flex;
   flex-direction: column;
